@@ -7,8 +7,8 @@ package Clases;
  */
 public class Empleado {
    
-    private String nombres;
-    private String apellidos;
+    private String nombre;
+    private String apellido;
     private String fecha_na;
     private String e_mail;
     private String cedula;
@@ -19,12 +19,12 @@ public class Empleado {
     private String celular;
     private String rol;
 
-    public Empleado(String nombres, String apellidos, String fecha_na, 
-            String e_mail, String cedula, String contraseña,
-            String ve_contraseña, String direccion, String telefono, String celular,
-            String rol) {
-        this.nombres = nombres;
-        this.apellidos = apellidos;
+    public Empleado(final String nombres, final String apellidos, final String fecha_na, 
+            final String e_mail, final String cedula, final String contraseña,
+            final String ve_contraseña, final String direccion, final String telefono, final String celular,
+            final String rol) {
+        this.nombre = nombres;
+        this.apellido = apellidos;
         this.fecha_na = fecha_na;
         this.e_mail = e_mail;
         this.cedula = cedula;
@@ -39,26 +39,26 @@ public class Empleado {
     
 
     public String getNombres() {
-        return nombres;
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombres(final String nombres) {
+        this.nombre = nombres;
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellido;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setApellidos(final String apellidos) {
+        this.apellido = apellidos;
     }
 
     public String getFecha_na() {
         return fecha_na;
     }
 
-    public void setFecha_na(String fecha_na) {
+    public void setFecha_na(final String fecha_na) {
         this.fecha_na =fecha_na;
     }
 
@@ -66,7 +66,7 @@ public class Empleado {
         return e_mail;
     }
 
-    public void setE_mail(String e_mail) {
+    public void setE_mail(final String e_mail) {
         this.e_mail = e_mail;
     }
 
@@ -74,7 +74,7 @@ public class Empleado {
         return cedula;
     }
 
-    public void setCedula(String cedula) {
+    public void setCedula(final String cedula) {
         this.cedula = cedula;
     }
 
@@ -82,7 +82,7 @@ public class Empleado {
         return contraseña;
     }
 
-    public void setContraseña(String contraseña) {
+    public void setContraseña(final String contraseña) {
         this.contraseña = contraseña;
     }
 
@@ -90,7 +90,7 @@ public class Empleado {
         return ve_contraseña;
     }
 
-    public void setVe_contraseña(String ve_contraseña) {
+    public void setVe_contraseña(final String ve_contraseña) {
         this.ve_contraseña = ve_contraseña;
     }
 
@@ -98,7 +98,7 @@ public class Empleado {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
+    public void setDireccion(final String direccion) {
         this.direccion = direccion;
     }
 
@@ -106,7 +106,7 @@ public class Empleado {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(final String telefono) {
         this.telefono = telefono;
     }
 
@@ -114,7 +114,7 @@ public class Empleado {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(final String celular) {
         this.celular = celular;
     }
 
@@ -122,7 +122,7 @@ public class Empleado {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(final String rol) {
         this.rol = rol;
     }
     

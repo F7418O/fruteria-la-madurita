@@ -16,11 +16,13 @@ import java.util.Scanner;
  */
 public class Clientes {
    //Atributos
-    private String nombre;
+   
     private String id;
     private String n_cedula;
+    private String nombre;
     private String direccion;
     private String num_cell;
+    
 
     //
 
