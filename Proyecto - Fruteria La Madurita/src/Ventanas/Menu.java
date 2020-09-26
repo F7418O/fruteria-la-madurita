@@ -47,49 +47,51 @@ ImageIcon factura;
     private void initComponents() {
 
         panel_base = new javax.swing.JPanel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         inventario = new javax.swing.JMenu();
         inventario_win = new javax.swing.JMenuItem();
-        control_mer_win = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        list_clien_win = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         ventas = new javax.swing.JMenu();
         venta_win = new javax.swing.JMenuItem();
         compras = new javax.swing.JMenu();
         provee_win = new javax.swing.JMenuItem();
-        lis_provee_win = new javax.swing.JMenuItem();
         factura_win = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jDesktopPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        panel_base.setBackground(new java.awt.Color(204, 255, 255));
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FRUTERIA LA MADURITA.PNG"))); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Downloads\\frase.PNG")); // NOI18N
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout panel_baseLayout = new javax.swing.GroupLayout(panel_base);
         panel_base.setLayout(panel_baseLayout);
         panel_baseLayout.setHorizontalGroup(
             panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addGroup(panel_baseLayout.createSequentialGroup()
+                .addGroup(panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_baseLayout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_baseLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel2)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         panel_baseLayout.setVerticalGroup(
             panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_baseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDesktopPane1)
-                .addContainerGap())
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(0, 153, 153));
@@ -98,7 +100,7 @@ ImageIcon factura;
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         inventario.setText("Productos");
-        inventario.setFont(new java.awt.Font("Book Antiqua", 3, 18)); // NOI18N
+        inventario.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
         inventario_win.setText("Inventario");
         inventario_win.addActionListener(new java.awt.event.ActionListener() {
@@ -108,26 +110,10 @@ ImageIcon factura;
         });
         inventario.add(inventario_win);
 
-        control_mer_win.setText("Control Mercaderia");
-        control_mer_win.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                control_mer_winActionPerformed(evt);
-            }
-        });
-        inventario.add(control_mer_win);
-
         jMenuBar1.add(inventario);
 
         jMenu3.setText("Clientes");
-        jMenu3.setFont(new java.awt.Font("Book Antiqua", 3, 18)); // NOI18N
-
-        list_clien_win.setText("Agregar nuevo Cliente");
-        list_clien_win.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                list_clien_winActionPerformed(evt);
-            }
-        });
-        jMenu3.add(list_clien_win);
+        jMenu3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
         jMenuItem5.setText("Lista de Clientes");
         jMenu3.add(jMenuItem5);
@@ -135,9 +121,9 @@ ImageIcon factura;
         jMenuBar1.add(jMenu3);
 
         ventas.setText("Ventas");
-        ventas.setFont(new java.awt.Font("Book Antiqua", 3, 18)); // NOI18N
+        ventas.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
-        venta_win.setText("Venta");
+        venta_win.setText("Pedidos");
         venta_win.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 venta_winActionPerformed(evt);
@@ -148,19 +134,19 @@ ImageIcon factura;
         jMenuBar1.add(ventas);
 
         compras.setText("Compra");
+        compras.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
         provee_win.setText("Proveedores");
         compras.add(provee_win);
 
-        lis_provee_win.setText("Lista de Proveedores");
-        compras.add(lis_provee_win);
-
         jMenuBar1.add(compras);
 
-        factura_win.setText("Facturas");
+        factura_win.setText("Facturación");
+        factura_win.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jMenuBar1.add(factura_win);
 
         jMenu2.setText("Usuario");
+        jMenu2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -169,39 +155,31 @@ ImageIcon factura;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inventario_winActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventario_winActionPerformed
-        Inventario ot=new Inventario();
-        ot.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_inventario_winActionPerformed
-
-    private void control_mer_winActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_mer_winActionPerformed
-     Control_mercaderia ot=new Control_mercaderia();
-      ot.setVisible(true);
-     dispose();
-    }//GEN-LAST:event_control_mer_winActionPerformed
-
-    private void list_clien_winActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list_clien_winActionPerformed
-     Agregar_nueClien ot=new Agregar_nueClien();
-      ot.setVisible(true);
-     dispose();   
-    }//GEN-LAST:event_list_clien_winActionPerformed
-
     private void venta_winActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venta_winActionPerformed
-      Ventas ot=new Ventas();
+      Pedidos ot=new Pedidos();
       ot.setVisible(true);
      dispose();  
     }//GEN-LAST:event_venta_winActionPerformed
+
+    private void inventario_winActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventario_winActionPerformed
+        Cajòn ot=new Cajòn();
+        ot.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_inventario_winActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,17 +219,15 @@ ImageIcon factura;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu compras;
-    private javax.swing.JMenuItem control_mer_win;
     private javax.swing.JMenu factura_win;
     private javax.swing.JMenu inventario;
     private javax.swing.JMenuItem inventario_win;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem lis_provee_win;
-    private javax.swing.JMenuItem list_clien_win;
     private javax.swing.JPanel panel_base;
     private javax.swing.JMenuItem provee_win;
     private javax.swing.JMenuItem venta_win;
