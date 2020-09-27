@@ -1,7 +1,7 @@
 package Ventanas;
 import Clases.Proveedores;
 import static Project.FuncionesArchivos.*;
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -54,7 +54,7 @@ Proveedores o;
 
         jLabel4.setText("Telefono");
 
-        jLabel5.setText("Número de RUC");
+        jLabel5.setText("Numero de Proveedor");
 
         jLabel6.setText("Ciudad/Provincia");
 
@@ -127,25 +127,25 @@ Proveedores o;
         jTable1.setBackground(new java.awt.Color(204, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Nombre", "RUC", "Contacto", "Ciudad", "Dirección", "Teléfono"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -172,8 +172,8 @@ Proveedores o;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
 
@@ -273,8 +273,8 @@ Proveedores o;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,14 +332,14 @@ Proveedores o;
                  && dir_prov.getText().isBlank() && telef_prov.getText().isBlank())){
             if(ad==true && ad1==true && ad2==true){
             try {
-                crearArchivoProveedor(o);
+                //
                 JOptionPane.showMessageDialog(this,"Datos Ingresados correctamente !");
                         empre_prov.setText("");
                         ruc_prov.setText("");
                         telef_prov.setText("");
                         dir_prov.setText("");
                         ciud_prov.setText("");
-            } catch (IOException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
               }
             }
