@@ -1,5 +1,9 @@
 package Clases;
 
+/**
+*
+*author @Frael
+*/
 public class Pedidos {
 
     private int id_cajon;

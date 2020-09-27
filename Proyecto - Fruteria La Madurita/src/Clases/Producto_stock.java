@@ -1,9 +1,5 @@
 package Clases;
 
-/**
- *
- * @author Frael Campos
- */
 public class Producto_stock {
     
     private int id;

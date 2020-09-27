@@ -1,10 +1,6 @@
 
 package Clases;
 
-/**
- *
- * @author Frael Campos
- */
 public class Empleado {
     private int id_rol;
     private int dni;

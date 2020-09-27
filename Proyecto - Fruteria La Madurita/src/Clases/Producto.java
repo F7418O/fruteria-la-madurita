@@ -1,10 +1,6 @@
 
 package Clases;
 
-/**
- *
- * @author Frael Campos
- */
 public class Producto {
     // Atributos
     private int id;

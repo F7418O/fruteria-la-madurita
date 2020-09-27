@@ -18,17 +18,9 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Frael Campos
- */
 public class FuncionesArchivos {
 
-    public static List<Clientes> cliente;
-    public static List<Empleado> empleado;
-    public static List<Producto> producto;
-    public static List<Proveedores> proveedor;
-
+  
     public static void agregarCliente(Connection con,Clientes cliente) throws IOException {
         PreparedStatement pst=null;
         String consulta= "Insert into cliente (id_cliente, id_tipo , nombre, apellido , telefono)" +

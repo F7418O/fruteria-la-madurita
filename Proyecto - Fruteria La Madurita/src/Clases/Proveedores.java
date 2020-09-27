@@ -1,9 +1,6 @@
 package Clases;
 
-/**
- *
- * @author Frael Campos
- */
+
 public class Proveedores {
 
     private String empresa;
