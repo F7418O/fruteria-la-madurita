@@ -6,62 +6,70 @@ import Clases.Clientes;
  * @author Frael Campos
  */
 public class Facturacion {
-  
-    public String nom_clien;
-    public String ced_clien;
-    public String num_factu;
-    public String fecha_ven;
-    public String nom_vendedor;
+    
+    private int id_factu;
+    private int id_vendedor;
+    private int id_clien;
+    private int total_pagar;
+    
+    private int cantidad_cajon;
+    private int id_cajonproducto;
+    private int cantidad_total;
+    private String fecha_ven;
 
-    public Facturacion(String nom_clien, String ced_clien, String num_factu, String fecha_ven, String nom_vendedor) {
-        this.nom_clien = nom_clien;
-        this.ced_clien = ced_clien;
-        this.num_factu = num_factu;
+    public Facturacion(int id_factu, int id_vendedor, int id_clien, int total_pagar, String fecha_ven) {
+        this.id_factu = id_factu;
+        this.id_vendedor = id_vendedor;
+        this.id_clien = id_clien;
+        this.total_pagar = total_pagar;
         this.fecha_ven = fecha_ven;
-        this.nom_vendedor = nom_vendedor;
     }
 
-    public String getNom_clien() {
-        return nom_clien;
+    public int getId_factu() {
+        return id_factu;
     }
 
-    public void setNom_clien(String nom_clien) {
-        this.nom_clien = nom_clien;
+    public int getId_vendedor() {
+        return id_vendedor;
     }
 
-    public String getCed_clien() {
-        return ced_clien;
+    public int getId_clien() {
+        return id_clien;
     }
 
-    public void setCed_clien(String ced_clien) {
-        this.ced_clien = ced_clien;
-    }
-
-    public String getNum_factu() {
-        return num_factu;
-    }
-
-    public void setNum_factu(String num_factu) {
-        this.num_factu = num_factu;
+    public int getTotal_pagar() {
+        return total_pagar;
     }
 
     public String getFecha_ven() {
         return fecha_ven;
+    }   
+
+    public int getCantidad_cajon() {
+        return cantidad_cajon;
     }
 
-    public void setFecha_ven(String fecha_ven) {
-        this.fecha_ven = fecha_ven;
+    public void setCantidad_cajon(int cantidad_cajon) {
+        this.cantidad_cajon = cantidad_cajon;
     }
 
-    public String getNom_vendedor() {
-        return nom_vendedor;
+    public int getId_cajonproducto() {
+        return id_cajonproducto;
     }
 
-    public void setNom_vendedor(String nom_vendedor) {
-        this.nom_vendedor = nom_vendedor;
+    public void setId_cajonproducto(int id_cajonproducto) {
+        this.id_cajonproducto = id_cajonproducto;
     }
-    
+
+    public int getCantidad_total() {
+        return cantidad_total;
+    }
+
+    public void setCantidad_total(int cantidad_total) {
+        this.cantidad_total = cantidad_total;
+    }
   
+    
     
     
     public class Detalle_ven{

@@ -6,20 +6,18 @@ package Clases;
  */
 public class Proveedores {
 
-public String empresa;
-public String contacto;
-public  String direccion;
-public String telefono;
-public String ruc;
-public String Ciudad;
+    private String empresa;
+    private String contacto;
+    private String direccion;
+    private String telefono;
 
-    public Proveedores(String empresa, String contacto, String direccion, String telefono, String ruc, String Ciudad) {
+
+    public Proveedores(String empresa, String contacto, String direccion, String telefono) {
         this.empresa = empresa;
         this.contacto = contacto;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.ruc = ruc;
-        this.Ciudad = Ciudad;
+        
     }
 
     public String getEmpresa() {
@@ -54,22 +52,5 @@ public String Ciudad;
         this.telefono = telefono;
     }
 
-    public String getRuc() {
-        return ruc;
-    }
-
-    public void setRuc(String ruc) {
-        this.ruc = ruc;
-    }
-
-    public String getCiudad() {
-        return Ciudad;
-    }
-
-    public void setCiudad(String Ciudad) {
-        this.Ciudad = Ciudad;
-    }
-
-
-    
+        
 }
