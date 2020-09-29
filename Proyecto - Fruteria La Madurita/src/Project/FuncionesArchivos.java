@@ -364,22 +364,20 @@ public class FuncionesArchivos {
     }
     
     //Cajonproducto
-    public static void crearCajonproducto(Connection con, Cajonproducto cj, int cant){
+    public static void crearCajonproducto(Connection con, Cajonproducto cj){
         PreparedStatement pst=null;
-        String consulta= "Insert into cajonproducto(id_cajonproducto, nombre, descripcion, cantidad_total)" +
-                "values(cajonproducto_seq.nextval,?,?,?)";
+        String consulta= "Insert into cajonproducto(id_cajonproducto, nombre, descripcion, cantidad)" +
+                "values(?,?,?,?)";
         
         try{
             pst= con.prepareStatement(consulta);
-            pst.setString(1, cj.getNombre());
-            pst.setString(2, cj.getDescripcion());
-            pst.setInt(3, cj.getCantidad_total());
+            pst.setInt(1, cj.getId());
+            pst.setString(2, cj.getNombre());
+            pst.setString(3, cj.getDescripcion());
+            pst.setInt(4, cj.getPrecio());
             pst.execute();
             pst.close();
             
-            for(int i = 0; i< cant ; i++){
-            
-            }
             
             System.out.print("Guardado correctamente");
             

@@ -13,10 +13,15 @@ public class Cajonproducto {
     
     private int producto;
 
-    public Cajonproducto(String nombre, String descripcion, int cantidad_total) {
+    public Cajonproducto(int id,String nombre, String descripcion, int cantidad_total) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+<<<<<<< HEAD
         this.precio = precio;
+=======
+        this.precio = cantidad_total;
+        this.id=id;
+>>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
     }
 
     public String getNombre() {
@@ -27,7 +32,11 @@ public class Cajonproducto {
         return descripcion;
     }
 
+<<<<<<< HEAD
     public int getCantidad_total() {
+=======
+    public int getPrecio() {
+>>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
         return precio;
     }
 

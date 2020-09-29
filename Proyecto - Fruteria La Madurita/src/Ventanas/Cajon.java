@@ -1,5 +1,14 @@
 package Ventanas;
 
+import Clases.Cajonproducto;
+import Project.Conexion;
+import javax.swing.JOptionPane;
+import Project.FuncionesArchivos;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 
@@ -7,15 +16,12 @@ package Ventanas;
  *
  * @author Frael Campos
  */
-public class Cajón extends javax.swing.JFrame {
+public class Cajon extends javax.swing.JFrame {
 
-   TableRowSorter trs;
-   DefaultTableModel modelo ;
    int fila;
-     Producto o=new Producto("","","","","");
      
     
-    public Cajón() {
+    public Cajon() {
         setTitle("Inventario");
         initComponents();
        
@@ -25,18 +31,6 @@ public class Cajón extends javax.swing.JFrame {
         String[] dias={"----","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
         String[] mes={"----","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
         String[] anio={"----","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032","2033","2034","2035","2036","2037","2038","2039","2040","2041","2042","2043","2044","2045","2046","2047","2048","2049","2050"};
-        Dia.setModel(new javax.swing.DefaultComboBoxModel(dias));
-        Dia.setSelectedIndex(0);
-        Mes.setModel(new javax.swing.DefaultComboBoxModel(mes));
-        Mes.setSelectedIndex(0);
-        Anio.setModel(new javax.swing.DefaultComboBoxModel(anio));
-        Anio.setSelectedIndex(0);
-        selectBus.setModel(new javax.swing.DefaultComboBoxModel(cri));
-        selectBus.setSelectedIndex(0);
-        
-        modelo = new DefaultTableModel();
-        datos_inventario.setModel(modelo);
-        
         
     }
     @SuppressWarnings("unchecked")
@@ -51,7 +45,7 @@ public class Cajón extends javax.swing.JFrame {
         txtPreprod = new javax.swing.JLabel();
         nom_prod = new javax.swing.JTextField();
         cod_prod = new javax.swing.JTextField();
-        cant_prod = new javax.swing.JTextField();
+        descripcion_prod = new javax.swing.JTextField();
         precio_prod = new javax.swing.JTextField();
         agregar_prod = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -80,7 +74,11 @@ public class Cajón extends javax.swing.JFrame {
 
         jLabel2.setText("Codigo del cajón");
 
+<<<<<<< HEAD
         txtCant.setText("Cantidad total");
+=======
+        txtCant.setText("Descripción");
+>>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
 
         txtPreprod.setText("Precio del cajón");
 
@@ -101,14 +99,14 @@ public class Cajón extends javax.swing.JFrame {
             }
         });
 
-        cant_prod.addActionListener(new java.awt.event.ActionListener() {
+        descripcion_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cant_prodActionPerformed(evt);
+                descripcion_prodActionPerformed(evt);
             }
         });
-        cant_prod.addKeyListener(new java.awt.event.KeyAdapter() {
+        descripcion_prod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                cant_prodKeyTyped(evt);
+                descripcion_prodKeyTyped(evt);
             }
         });
 
@@ -137,11 +135,17 @@ public class Cajón extends javax.swing.JFrame {
                             .addComponent(txtPreprod))
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cant_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(45, 45, 45)
+<<<<<<< HEAD
                 .addComponent(agregar_prod)
+=======
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(modificar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(agregar_prod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -159,7 +163,7 @@ public class Cajón extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCant)
-                    .addComponent(cant_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPreprod)
@@ -360,71 +364,41 @@ public class Cajón extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void mostrar(String [][] tabla){
-//DefaultTableModel modelo = (DefaultTableModel)datos_inventario.getModel();
 
-   modelo.setRowCount(tabla.length);
-   modelo.setColumnCount(5);
-   JTableHeader head = datos_inventario.getTableHeader();
-   TableColumnModel tcm = head.getColumnModel();
-   TableColumn tabCM = tcm.getColumn(0);
-    tabCM.setHeaderValue("Nombre del Producto");
-   TableColumn tabCM2 = tcm.getColumn(1);
-    tabCM2.setHeaderValue("Codigo del Producto");
-   TableColumn tabCM3 = tcm.getColumn(2);
-    tabCM3.setHeaderValue("Cantidad");
-   TableColumn tabCM4= tcm.getColumn(3);
-    tabCM4.setHeaderValue("Precio ");
-   TableColumn tabCM5= tcm.getColumn(4);
-    tabCM5.setHeaderValue("Fecha Ingreso");
-
-
-
- for(int i=0;i<tabla.length;i++){
-   for(int j=0;j<5;j++){
-     modelo.setValueAt(tabla[i][j], i, j);
-    }   
- }
-}
     private void nom_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nom_prodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nom_prodActionPerformed
 
-    private void cant_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cant_prodActionPerformed
+    private void descripcion_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcion_prodActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cant_prodActionPerformed
+    }//GEN-LAST:event_descripcion_prodActionPerformed
 
     private void agregar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_prodActionPerformed
      
-     
-   Producto p =new Producto(nom_prod.getText(), cod_prod.getText(), 
-                 precio_prod.getText(),cant_prod.getText(),
-                 unirS(Dia.getSelectedItem().toString(),Mes.getSelectedItem().toString(),Anio.getSelectedItem().toString()));
-   
-        if(nom_prod.getText().isEmpty() && cod_prod.getText().isEmpty() && 
-                precio_prod.getText().isEmpty() && 
-                cant_prod.getText().isEmpty())
-        {
- 
+        if(nom_prod.getText().isBlank() || descripcion_prod.getText().isBlank() || precio_prod.getText().isBlank() || cod_prod.getText().isBlank()){
+            
+            JOptionPane.showMessageDialog(null, "Llene todos los campos");
         }else{
-        
+            
+            Cajonproducto oCajon=new Cajonproducto(Integer.parseInt(cod_prod.getText()),nom_prod.getText(), descripcion_prod.getText(), Integer.parseInt(precio_prod.getText()));
+            Connection con;
+            
             try {
-                crearArchivoInventario(p);
-            } catch (IOException ex) {
-                Logger.getLogger(Cajón.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("error");
+                con = Conexion.getConnection();
+                FuncionesArchivos.crearCajonproducto(con, oCajon);
+                con.close();
+                JOptionPane.showMessageDialog(null, "Se ha agregado correctamente");
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "No se puedo agregar"+ex);
             }
-      
-
+           
+            
         }
-         nom_prod.setText("");
-         cod_prod.setText("");
-         precio_prod.setText("");
-         cant_prod.setText("");
-        Dia.setSelectedIndex(0);
-        Mes.setSelectedIndex(0);
-        Anio.setSelectedIndex(0);
-            mostrar(leerRegistroInventario());
+   
         
     }//GEN-LAST:event_agregar_prodActionPerformed
 
@@ -433,25 +407,15 @@ public void mostrar(String [][] tabla){
     }//GEN-LAST:event_cod_prodActionPerformed
 
     private void volver_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volver_menuActionPerformed
-      Menu ot=new Menu();
-      ot.setVisible(true);
-     dispose();  
+      
     }//GEN-LAST:event_volver_menuActionPerformed
 
-    private void cant_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cant_prodKeyTyped
-    char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }     
-    }//GEN-LAST:event_cant_prodKeyTyped
+    private void descripcion_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcion_prodKeyTyped
+         
+    }//GEN-LAST:event_descripcion_prodKeyTyped
 
     private void cod_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_prodKeyTyped
-     char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }     
+         
     }//GEN-LAST:event_cod_prodKeyTyped
 
     private void modificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar1ActionPerformed
@@ -459,7 +423,7 @@ public void mostrar(String [][] tabla){
     }//GEN-LAST:event_modificar1ActionPerformed
 
     private void ver_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_inventarioActionPerformed
-        mostrar(leerRegistroInventario());
+    
     }//GEN-LAST:event_ver_inventarioActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -468,22 +432,7 @@ public void mostrar(String [][] tabla){
 
     private void buscar_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyTyped
 
-        buscar_prod.addKeyListener(new KeyAdapter(){
-            @Override
-            public void keyReleased(KeyEvent ke){
-
-                switch (selectBus.getSelectedItem().toString()){
-                    case "Nombre":trs.setRowFilter(RowFilter.regexFilter(buscar_prod.getText(), 0));
-                    break;
-                    case "Codigo":trs.setRowFilter(RowFilter.regexFilter(buscar_prod.getText(), 1));
-                    break;
-                }
-
-            }
-
-        });
-        trs= new TableRowSorter(modelo);//le mando el default model
-        datos_inventario.setRowSorter( trs);//y depues le paso el tablerow a la tabla
+       
     }//GEN-LAST:event_buscar_prodKeyTyped
 
     private void buscar_prodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyPressed
@@ -509,14 +458,22 @@ public void mostrar(String [][] tabla){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cajón.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cajon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cajón.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cajon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cajón.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cajon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cajón.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cajon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -529,7 +486,7 @@ public void mostrar(String [][] tabla){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cajón().setVisible(true);
+                new Cajon().setVisible(true);
             }
         });
     }
@@ -537,8 +494,8 @@ public void mostrar(String [][] tabla){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_prod;
     private javax.swing.JTextField buscar_prod;
-    private javax.swing.JTextField cant_prod;
     private javax.swing.JTextField cod_prod;
+    private javax.swing.JTextField descripcion_prod;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

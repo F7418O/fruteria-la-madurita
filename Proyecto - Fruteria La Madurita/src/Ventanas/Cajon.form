@@ -124,14 +124,21 @@
                               </Group>
                               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cant_prod" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="descripcion_prod" min="-2" pref="150" max="-2" attributes="0"/>
                                   <Component id="cod_prod" min="-2" pref="150" max="-2" attributes="0"/>
                                   <Component id="precio_prod" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+<<<<<<< HEAD
                       <Component id="agregar_prod" min="-2" max="-2" attributes="0"/>
+=======
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="modificar1" max="32767" attributes="0"/>
+                          <Component id="agregar_prod" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+>>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
                       <EmptySpace pref="66" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -153,7 +160,7 @@
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtCant" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cant_prod" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="descripcion_prod" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -178,7 +185,11 @@
             </Component>
             <Component class="javax.swing.JLabel" name="txtCant">
               <Properties>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Cantidad total"/>
+=======
+                <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
+>>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="txtPreprod">
@@ -197,10 +208,10 @@
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cod_prodKeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="cant_prod">
+            <Component class="javax.swing.JTextField" name="descripcion_prod">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cant_prodActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cant_prodKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="descripcion_prodActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="descripcion_prodKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="precio_prod">
