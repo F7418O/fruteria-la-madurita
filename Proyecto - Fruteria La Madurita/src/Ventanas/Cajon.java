@@ -2,36 +2,20 @@ package Ventanas;
 
 import Clases.Cajonproducto;
 import Project.Conexion;
-import javax.swing.JOptionPane;
 import Project.FuncionesArchivos;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-
-
-
 /**
  *
  * @author Frael Campos
  */
 public class Cajon extends javax.swing.JFrame {
 
-   int fila;
      
     
     public Cajon() {
-        setTitle("Inventario");
-        initComponents();
        
-        setLocationRelativeTo(null);
-            
-        String[]cri= {"Nombre","Codigo"};
-        String[] dias={"----","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
-        String[] mes={"----","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-        String[] anio={"----","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032","2033","2034","2035","2036","2037","2038","2039","2040","2041","2042","2043","2044","2045","2046","2047","2048","2049","2050"};
-        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,7 +25,7 @@ public class Cajon extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCant = new javax.swing.JLabel();
+        txtDescripcion = new javax.swing.JLabel();
         txtPreprod = new javax.swing.JLabel();
         nom_prod = new javax.swing.JTextField();
         cod_prod = new javax.swing.JTextField();
@@ -74,11 +58,7 @@ public class Cajon extends javax.swing.JFrame {
 
         jLabel2.setText("Codigo del cajón");
 
-<<<<<<< HEAD
-        txtCant.setText("Cantidad total");
-=======
-        txtCant.setText("Descripción");
->>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
+        txtDescripcion.setText("Descripcion");
 
         txtPreprod.setText("Precio del cajón");
 
@@ -131,7 +111,7 @@ public class Cajon extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtCant)
+                            .addComponent(txtDescripcion)
                             .addComponent(txtPreprod))
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,13 +119,7 @@ public class Cajon extends javax.swing.JFrame {
                             .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(45, 45, 45)
-<<<<<<< HEAD
                 .addComponent(agregar_prod)
-=======
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(modificar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(agregar_prod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
->>>>>>> 12e8c714b98d393a0b451a24cb06803a5d228db3
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -162,7 +136,7 @@ public class Cajon extends javax.swing.JFrame {
                     .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCant)
+                    .addComponent(txtDescripcion)
                     .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -275,11 +249,11 @@ public class Cajon extends javax.swing.JFrame {
                         .addComponent(txtBuca_prod)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addGap(59, 59, 59)
                         .addComponent(buscar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(173, 173, 173)
-                        .addComponent(modificar1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                        .addGap(26, 26, 26)
+                        .addGap(150, 150, 150)
+                        .addComponent(modificar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(ver_inventario))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -320,7 +294,7 @@ public class Cajon extends javax.swing.JFrame {
                 .addGroup(panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,7 +348,6 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_descripcion_prodActionPerformed
 
     private void agregar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_prodActionPerformed
-     
         if(nom_prod.getText().isBlank() || descripcion_prod.getText().isBlank() || precio_prod.getText().isBlank() || cod_prod.getText().isBlank()){
             
             JOptionPane.showMessageDialog(null, "Llene todos los campos");
@@ -390,16 +363,13 @@ public class Cajon extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se ha agregado correctamente");
                 
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+                
             } catch (SQLException ex) {
-                Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+              
                 JOptionPane.showMessageDialog(null, "No se puedo agregar"+ex);
             }
-           
-            
         }
-   
-        
+           
     }//GEN-LAST:event_agregar_prodActionPerformed
 
     private void cod_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_prodActionPerformed
@@ -407,15 +377,25 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_cod_prodActionPerformed
 
     private void volver_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volver_menuActionPerformed
-      
+      Menu ot=new Menu();
+      ot.setVisible(true);
+     dispose();  
     }//GEN-LAST:event_volver_menuActionPerformed
 
     private void descripcion_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcion_prodKeyTyped
-         
+    char Val=evt.getKeyChar();
+     
+     if(Character.isLetter(Val)){
+     evt.consume();
+     }     
     }//GEN-LAST:event_descripcion_prodKeyTyped
 
     private void cod_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_prodKeyTyped
-         
+     char Val=evt.getKeyChar();
+     
+     if(Character.isLetter(Val)){
+     evt.consume();
+     }     
     }//GEN-LAST:event_cod_prodKeyTyped
 
     private void modificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar1ActionPerformed
@@ -423,16 +403,11 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_modificar1ActionPerformed
 
     private void ver_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_inventarioActionPerformed
-    
+        
     }//GEN-LAST:event_ver_inventarioActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void buscar_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyTyped
 
-       
     }//GEN-LAST:event_buscar_prodKeyTyped
 
     private void buscar_prodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyPressed
@@ -440,8 +415,12 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_buscar_prodKeyPressed
 
     private void buscar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_prodActionPerformed
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_buscar_prodActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
   
     public static void main(String args[]) {
@@ -466,14 +445,6 @@ public class Cajon extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Cajon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -512,7 +483,7 @@ public class Cajon extends javax.swing.JFrame {
     private javax.swing.JPanel panel_base;
     private javax.swing.JTextField precio_prod;
     private javax.swing.JLabel txtBuca_prod;
-    private javax.swing.JLabel txtCant;
+    private javax.swing.JLabel txtDescripcion;
     private javax.swing.JLabel txtPreprod;
     private javax.swing.JButton ver_inventario;
     private javax.swing.JButton volver_menu;
