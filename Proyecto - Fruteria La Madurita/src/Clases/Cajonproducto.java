@@ -9,14 +9,15 @@ public class Cajonproducto {
     private int id;
     private String nombre;
     private String descripcion;
-    private int cantidad_total;
+    private int precio;
     
     private int producto;
 
-    public Cajonproducto(String nombre, String descripcion, int cantidad_total) {
+    public Cajonproducto(int id,String nombre, String descripcion, int cantidad_total) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.cantidad_total = cantidad_total;
+        this.precio = cantidad_total;
+        this.id=id;
     }
 
     public String getNombre() {
@@ -27,8 +28,8 @@ public class Cajonproducto {
         return descripcion;
     }
 
-    public int getCantidad_total() {
-        return cantidad_total;
+    public int getPrecio() {
+        return precio;
     }
 
     public void setProducto(int producto) {
