@@ -44,6 +44,4 @@ public class Conexion {
         getConnection();
     }
  
-    //this is an comment
-
 }

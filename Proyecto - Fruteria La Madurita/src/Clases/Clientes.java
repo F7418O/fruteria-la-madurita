@@ -1,15 +1,6 @@
 
 package Clases;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 /**
  *
  * @author Frael Campos
@@ -17,24 +8,22 @@ import java.util.Scanner;
 public class Clientes {
    //Atributos
    
-    private String id;
+    private String id_tipo;
     private String n_cedula;
     private String nombre;
+    private String apellido;
     private String direccion;
-    private String num_cell;
-    
+    private String telefono;
 
-    //
-
-    public Clientes(String nombre, String id, String n_cedula, String direccion, String num_cell) {
+    public Clientes(String id_tipo, String nombre, String apellido, String direccion, String telefono) {
+        this.id_tipo = id_tipo;
         this.nombre = nombre;
-        this.id = id;
-        this.n_cedula = n_cedula;
+        this.apellido = apellido;
         this.direccion = direccion;
-        this.num_cell = num_cell;
+        this.telefono = telefono;
     }
-
     
+     
     
 
     public String getNombre() {
@@ -45,14 +34,19 @@ public class Clientes {
         this.nombre = nombre;
     }
 
-    public String getId() {
-        return id;
+    public String getId_tipo() {
+        return id_tipo;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getApellido() {
+        return apellido;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    
     public String getN_cedula() {
         return n_cedula;
     }
@@ -69,13 +63,7 @@ public class Clientes {
         this.direccion = direccion;
     }
 
-    public String getNum_cell() {
-        return num_cell;
-    }
-
-    public void setNum_cell(String num_cell) {
-        this.num_cell = num_cell;
-    }
+   
     
     
    
