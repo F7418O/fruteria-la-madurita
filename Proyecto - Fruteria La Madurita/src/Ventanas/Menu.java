@@ -31,13 +31,10 @@ ImageIcon factura;
 
 
     public Menu() {
-        setTitle("Sistema Peñaca S.A.");
+        setTitle("Fruteria la Madurita.");
         initComponents();
         setLocationRelativeTo(null);
        
-      
-        this.inven = new ImageIcon(icc1.getImage().getScaledInstance(inventario.getWidth(),inventario.getHeight(), Image.SCALE_DEFAULT));
-        inventario.setIcon(inven);
 
     }
 
@@ -174,7 +171,7 @@ ImageIcon factura;
     }//GEN-LAST:event_venta_winActionPerformed
 
     private void inventario_winActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventario_winActionPerformed
-        Cajòn ot=new Cajòn();
+        Cajon ot=new Cajon();
         ot.setVisible(true);
         dispose();
     }//GEN-LAST:event_inventario_winActionPerformed

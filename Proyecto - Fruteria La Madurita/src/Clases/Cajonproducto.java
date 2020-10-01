@@ -11,6 +11,8 @@ public class Cajonproducto {
     private String descripcion;
     private int precio;
     
+    private int producto;
+    
     public Cajonproducto(int id,String nombre, String descripcion, int cantidad_total) {
         this.id=id;    
         this.nombre = nombre;
@@ -40,7 +42,12 @@ public class Cajonproducto {
         return id;
     }
     
+    public int getProducto() {
+        return producto;
+    }
     
-    
+    public void setProducto( int producto) {
+        this.producto=producto;
+    }
     
 }

@@ -2,20 +2,25 @@ package Clases;
 
 
 public class Proveedores {
-
+    
+    private int id;
     private String empresa;
     private String contacto;
     private String direccion;
-    private String telefono;
+    private int telefono;
+    private String ciudad;
 
-
-    public Proveedores(String empresa, String contacto, String direccion, String telefono) {
+    public Proveedores(int id, String empresa, String contacto, String direccion, int telefono, String ciudad) {
+        this.id = id;
         this.empresa = empresa;
         this.contacto = contacto;
         this.direccion = direccion;
         this.telefono = telefono;
-        
+        this.ciudad = ciudad;
     }
+
+
+   
 
     public String getEmpresa() {
         return empresa;
@@ -41,12 +46,16 @@ public class Proveedores {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public int getId() {
+        return id;
+    }
+
+    public String getCiudad() {
+        return ciudad;
     }
 
         

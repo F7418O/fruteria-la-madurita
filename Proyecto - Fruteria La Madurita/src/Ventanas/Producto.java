@@ -1,43 +1,21 @@
 package Ventanas;
 
-
-
-
 /**
  *
  * @author Frael Campos
  */
-public class Producto_Inventario extends javax.swing.JFrame {
+public class Producto extends javax.swing.JFrame {
 
-   TableRowSorter trs;
-   DefaultTableModel modelo ;
-   int fila;
-     Producto o=new Producto("","","","","");
+   
      
     
-    public Producto_Inventario() {
+    public Producto() {
         setTitle("Inventario");
         initComponents();
        
         setLocationRelativeTo(null);
             
-        String[]cri= {"Nombre","Codigo"};
-        String[] dias={"----","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
-        String[] mes={"----","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-        String[] anio={"----","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032","2033","2034","2035","2036","2037","2038","2039","2040","2041","2042","2043","2044","2045","2046","2047","2048","2049","2050"};
-        Dia.setModel(new javax.swing.DefaultComboBoxModel(dias));
-        Dia.setSelectedIndex(0);
-        Mes.setModel(new javax.swing.DefaultComboBoxModel(mes));
-        Mes.setSelectedIndex(0);
-        Anio.setModel(new javax.swing.DefaultComboBoxModel(anio));
-        Anio.setSelectedIndex(0);
-        selectBus.setModel(new javax.swing.DefaultComboBoxModel(cri));
-        selectBus.setSelectedIndex(0);
-        
-        modelo = new DefaultTableModel();
-        datos_inventario.setModel(modelo);
-        
-        
+                 
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -48,11 +26,9 @@ public class Producto_Inventario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCant = new javax.swing.JLabel();
-        txtPreprod = new javax.swing.JLabel();
         nom_prod = new javax.swing.JTextField();
         cod_prod = new javax.swing.JTextField();
         cant_prod = new javax.swing.JTextField();
-        precio_prod = new javax.swing.JTextField();
         agregar_prod = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -61,14 +37,14 @@ public class Producto_Inventario extends javax.swing.JFrame {
         Anio = new javax.swing.JComboBox<>();
         modificar1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        precio_prod1 = new javax.swing.JTextField();
+        prov_prod = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         buscar_prod = new javax.swing.JTextField();
         txtBuca_prod = new javax.swing.JLabel();
         ver_inventario = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -88,8 +64,6 @@ public class Producto_Inventario extends javax.swing.JFrame {
         jLabel2.setText("Codigo del producto");
 
         txtCant.setText("Cantidad");
-
-        txtPreprod.setText("Precio del producto");
 
         nom_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +110,11 @@ public class Producto_Inventario extends javax.swing.JFrame {
         jLabel5.setText("Fecha de ingreso:");
 
         Dia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        Dia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DiaActionPerformed(evt);
+            }
+        });
 
         Mes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
@@ -148,7 +127,7 @@ public class Producto_Inventario extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Producto Stock");
+        jLabel6.setText("Proveedor");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,12 +145,10 @@ public class Producto_Inventario extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(txtCant)
-                                    .addComponent(txtPreprod))
+                                    .addComponent(txtCant))
                                 .addGap(22, 22, 22)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cant_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -193,7 +170,7 @@ public class Producto_Inventario extends javax.swing.JFrame {
                                 .addComponent(Anio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
-                                .addComponent(precio_prod1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(prov_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -218,10 +195,7 @@ public class Producto_Inventario extends javax.swing.JFrame {
                     .addComponent(txtCant)
                     .addComponent(cant_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPreprod)
-                    .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modificar1))
+                .addComponent(modificar1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -231,7 +205,7 @@ public class Producto_Inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(precio_prod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prov_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -263,27 +237,9 @@ public class Producto_Inventario extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(204, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Código", "Cantidad", "Precio", "Fecha de Ingreso", "Producto Stock"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código del Producto", "Nombre", "Fecha de Ingreso" }));
+
+        jScrollPane1.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -294,15 +250,15 @@ public class Producto_Inventario extends javax.swing.JFrame {
                 .addComponent(txtBuca_prod)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(465, 465, 465)
                 .addComponent(buscar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ver_inventario)
                 .addGap(35, 35, 35))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 981, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,9 +269,9 @@ public class Producto_Inventario extends javax.swing.JFrame {
                     .addComponent(buscar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ver_inventario)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 255));
@@ -339,7 +295,7 @@ public class Producto_Inventario extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,7 +319,7 @@ public class Producto_Inventario extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(21, 21, 21))
         );
         panel_baseLayout.setVerticalGroup(
             panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,12 +328,11 @@ public class Producto_Inventario extends javax.swing.JFrame {
                     .addGroup(panel_baseLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         volver_menu.setText("Volver ");
@@ -394,16 +349,15 @@ public class Producto_Inventario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(volver_menu)))
+                .addGap(42, 42, 42)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 912, Short.MAX_VALUE)
+                .addComponent(volver_menu)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel_base, javax.swing.GroupLayout.PREFERRED_SIZE, 1081, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,37 +367,12 @@ public class Producto_Inventario extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void mostrar(String [][] tabla){
-//DefaultTableModel modelo = (DefaultTableModel)datos_inventario.getModel();
 
-   modelo.setRowCount(tabla.length);
-   modelo.setColumnCount(5);
-   JTableHeader head = datos_inventario.getTableHeader();
-   TableColumnModel tcm = head.getColumnModel();
-   TableColumn tabCM = tcm.getColumn(0);
-    tabCM.setHeaderValue("Nombre del Producto");
-   TableColumn tabCM2 = tcm.getColumn(1);
-    tabCM2.setHeaderValue("Codigo del Producto");
-   TableColumn tabCM3 = tcm.getColumn(2);
-    tabCM3.setHeaderValue("Cantidad");
-   TableColumn tabCM4= tcm.getColumn(3);
-    tabCM4.setHeaderValue("Precio ");
-   TableColumn tabCM5= tcm.getColumn(4);
-    tabCM5.setHeaderValue("Fecha Ingreso");
-
-
-
- for(int i=0;i<tabla.length;i++){
-   for(int j=0;j<5;j++){
-     modelo.setValueAt(tabla[i][j], i, j);
-    }   
- }
-}
     private void nom_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nom_prodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nom_prodActionPerformed
@@ -453,37 +382,12 @@ public void mostrar(String [][] tabla){
     }//GEN-LAST:event_cant_prodActionPerformed
 
     private void agregar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_prodActionPerformed
-     
-     
-   Producto p =new Producto(nom_prod.getText(), cod_prod.getText(), 
-                 precio_prod.getText(),cant_prod.getText(),
-                 unirS(Dia.getSelectedItem().toString(),Mes.getSelectedItem().toString(),Anio.getSelectedItem().toString()));
-   
-        if(nom_prod.getText().isEmpty() && cod_prod.getText().isEmpty() && 
-                precio_prod.getText().isEmpty() && 
-                cant_prod.getText().isEmpty())
-        {
- 
-        }else{
         
-            try {
-                crearArchivoInventario(p);
-            } catch (IOException ex) {
-                Logger.getLogger(Producto_Inventario.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("error");
-            }
-      
-
+      if(nom_prod.getText().isEmpty() || cant_prod.getText().isEmpty() || cod_prod.getText().isEmpty() ||
+              prov_prod.getText().isEmpty() ){
+        
         }
-         nom_prod.setText("");
-         cod_prod.setText("");
-         precio_prod.setText("");
-         cant_prod.setText("");
-        Dia.setSelectedIndex(0);
-        Mes.setSelectedIndex(0);
-        Anio.setSelectedIndex(0);
-            mostrar(leerRegistroInventario());
-        
+         
     }//GEN-LAST:event_agregar_prodActionPerformed
 
     private void cod_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_prodActionPerformed
@@ -521,27 +425,12 @@ public void mostrar(String [][] tabla){
     }//GEN-LAST:event_modificar1ActionPerformed
 
     private void ver_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_inventarioActionPerformed
-        mostrar(leerRegistroInventario());
+        
     }//GEN-LAST:event_ver_inventarioActionPerformed
 
     private void buscar_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyTyped
 
-        buscar_prod.addKeyListener(new KeyAdapter(){
-            @Override
-            public void keyReleased(KeyEvent ke){
-
-                switch (selectBus.getSelectedItem().toString()){
-                    case "Nombre":trs.setRowFilter(RowFilter.regexFilter(buscar_prod.getText(), 0));
-                    break;
-                    case "Codigo":trs.setRowFilter(RowFilter.regexFilter(buscar_prod.getText(), 1));
-                    break;
-                }
-
-            }
-
-        });
-        trs= new TableRowSorter(modelo);//le mando el default model
-        datos_inventario.setRowSorter( trs);//y depues le paso el tablerow a la tabla
+       
     }//GEN-LAST:event_buscar_prodKeyTyped
 
     private void buscar_prodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyPressed
@@ -552,50 +441,18 @@ public void mostrar(String [][] tabla){
         // TODO add your handling code here:
     }//GEN-LAST:event_buscar_prodActionPerformed
 
+    private void DiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DiaActionPerformed
+
   
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Producto_Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Producto_Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Producto_Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Producto_Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+      
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Producto_Inventario().setVisible(true);
+                new Producto().setVisible(true);
             }
         });
     }
@@ -618,18 +475,16 @@ public void mostrar(String [][] tabla){
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JButton modificar;
     private javax.swing.JButton modificar1;
     private javax.swing.JTextField nom_prod;
     private javax.swing.JPanel panel_base;
-    private javax.swing.JTextField precio_prod;
-    private javax.swing.JTextField precio_prod1;
+    private javax.swing.JTextField prov_prod;
     private javax.swing.JLabel txtBuca_prod;
     private javax.swing.JLabel txtCant;
-    private javax.swing.JLabel txtPreprod;
     private javax.swing.JButton ver_inventario;
     private javax.swing.JButton volver_menu;
     // End of variables declaration//GEN-END:variables

@@ -2,10 +2,7 @@
 package Ventanas;
 
 import Ventanas.Menu;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+
 import static Project.FuncionesArchivos.*;
 import javax.swing.JOptionPane;
 
@@ -15,24 +12,13 @@ import javax.swing.JOptionPane;
  */
 public class Pedidos extends javax.swing.JFrame {
 
-   DefaultTableModel modelo=new DefaultTableModel();
-   DefaultTableModel modelo2;//= new DefaultTableModel();
+  
     public Pedidos() {
+       
         setTitle("Ventas");
-               
         initComponents();
-     this.setLocationRelativeTo(null);
-    String cri[]={"Nombre","Codigo"};
-    busca_prod_por.setModel(new javax.swing.DefaultComboBoxModel(cri));
-    
-   // modelo = new DefaultTableModel();
+        setLocationRelativeTo(null);
    
-    productos.setModel(modelo);
-     modelo2=new  DefaultTableModel();
-     modelo2.addColumn("Codigo");
-     modelo2.addColumn("Nombre");
-     modelo2.addColumn("Cantidad");
-     modelo2.addColumn("Precio");
    
     
     }
@@ -361,30 +347,7 @@ public class Pedidos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void mostrar(String [][] tabla){
-//DefaultTableModel modelo = (DefaultTableModel)datos_inventario.getModel();
 
-   modelo.setRowCount(tabla.length);
-   modelo.setColumnCount(4);
-   JTableHeader head = productos.getTableHeader();
-   TableColumnModel tcm = head.getColumnModel();
-   TableColumn tabCM = tcm.getColumn(0);
-    tabCM.setHeaderValue("Nombre del Producto");
-   TableColumn tabCM2 = tcm.getColumn(1);
-    tabCM2.setHeaderValue("Codigo del Producto");
-   TableColumn tabCM3 = tcm.getColumn(2);
-    tabCM3.setHeaderValue("Cantidad");
-   TableColumn tabCM4= tcm.getColumn(3);
-    tabCM4.setHeaderValue("Precio ");
-
-
-
- for(int i=0;i<tabla.length;i++){
-   for(int j=0;j<4;j++){
-     modelo.setValueAt(tabla[i][j], i, j);
-    }   
- }
-}
     
    public void AgregarADetalle(){
    if(productos.getSelectedRow()!=-1){
@@ -393,15 +356,6 @@ public class Pedidos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay stock suficiente!", "Informacion!", JOptionPane.INFORMATION_MESSAGE);
             } else {
      
-                        Object[] object = {
-                    productos.getValueAt(productos.getSelectedRow(), 0),
-                    productos.getValueAt(productos.getSelectedRow(), 1),
-                    cantidad,
-                    productos.getValueAt(productos.getSelectedRow(), 3),};
-                        
-                
-                modelo2.addRow(object);
-               detalles_productos.setModel(modelo2);
    }
    }
     else {
@@ -423,7 +377,7 @@ public class Pedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_volver_menuActionPerformed
 
     private void mostrar_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrar_productosActionPerformed
-     mostrar(leerRegistroProducto());
+    
     }//GEN-LAST:event_mostrar_productosActionPerformed
 
     private void agregar_producActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_producActionPerformed
@@ -433,7 +387,7 @@ public class Pedidos extends javax.swing.JFrame {
     private void quitar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitar_prodActionPerformed
       int fila=detalles_productos.getSelectedRow();
       if(fila>-1){
-      modelo2.removeRow(fila);
+      //
       }else{
           JOptionPane.showMessageDialog(null, "Porfavor, seleccione un producto para continuar!", "Informacion!", JOptionPane.INFORMATION_MESSAGE);
       }
