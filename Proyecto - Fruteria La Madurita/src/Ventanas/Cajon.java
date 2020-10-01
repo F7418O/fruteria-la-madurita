@@ -15,7 +15,17 @@ public class Cajon extends javax.swing.JFrame {
      
     
     public Cajon() {
+        setTitle("Cajon de Productos");
       initComponents();
+      setLocationRelativeTo(null);
+      
+    }
+    
+    public void mostrar() throws ClassNotFoundException, SQLException{
+        Connection con= Conexion.getConnection();
+        FuncionesArchivos.mostrarCajon(con, cajon);
+        con.close();
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -25,11 +35,11 @@ public class Cajon extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JLabel();
+        txtCant = new javax.swing.JLabel();
         txtPreprod = new javax.swing.JLabel();
         nom_prod = new javax.swing.JTextField();
         cod_prod = new javax.swing.JTextField();
-        descripcion_prod = new javax.swing.JTextField();
+        descripcion = new javax.swing.JTextField();
         precio_prod = new javax.swing.JTextField();
         agregar_prod = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -40,7 +50,7 @@ public class Cajon extends javax.swing.JFrame {
         txtBuca_prod = new javax.swing.JLabel();
         ver_inventario = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        cajon = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
         modificar1 = new javax.swing.JButton();
         volver_menu = new javax.swing.JButton();
@@ -58,7 +68,7 @@ public class Cajon extends javax.swing.JFrame {
 
         jLabel2.setText("Codigo del cajón");
 
-        txtDescripcion.setText("Descripcion");
+        txtCant.setText("Descripcion");
 
         txtPreprod.setText("Precio del cajón");
 
@@ -79,14 +89,14 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
-        descripcion_prod.addActionListener(new java.awt.event.ActionListener() {
+        descripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descripcion_prodActionPerformed(evt);
+                descripcionActionPerformed(evt);
             }
         });
-        descripcion_prod.addKeyListener(new java.awt.event.KeyAdapter() {
+        descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                descripcion_prodKeyTyped(evt);
+                descripcionKeyTyped(evt);
             }
         });
 
@@ -111,11 +121,11 @@ public class Cajon extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtDescripcion)
+                            .addComponent(txtCant)
                             .addComponent(txtPreprod))
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(45, 45, 45)
@@ -136,8 +146,8 @@ public class Cajon extends javax.swing.JFrame {
                     .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDescripcion)
-                    .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCant)
+                    .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPreprod)
@@ -204,25 +214,25 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(204, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cajon.setBackground(new java.awt.Color(204, 255, 255));
+        cajon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Nombre", "Código", "Cantidad", "Precio"
+
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(cajon);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código del Cajón", "Nombre", " " }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -251,9 +261,9 @@ public class Cajon extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
                         .addComponent(buscar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150)
+                        .addGap(136, 136, 136)
                         .addComponent(modificar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
                         .addComponent(ver_inventario))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -435,8 +445,9 @@ public class Cajon extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_prod;
     private javax.swing.JTextField buscar_prod;
+    private javax.swing.JTable cajon;
     private javax.swing.JTextField cod_prod;
-    private javax.swing.JTextField descripcion_prod;
+    private javax.swing.JTextField descripcion;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -447,13 +458,12 @@ public class Cajon extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton modificar1;
     private javax.swing.JTextField nom_prod;
     private javax.swing.JPanel panel_base;
     private javax.swing.JTextField precio_prod;
     private javax.swing.JLabel txtBuca_prod;
-    private javax.swing.JLabel txtDescripcion;
+    private javax.swing.JLabel txtCant;
     private javax.swing.JLabel txtPreprod;
     private javax.swing.JButton ver_inventario;
     private javax.swing.JButton volver_menu;

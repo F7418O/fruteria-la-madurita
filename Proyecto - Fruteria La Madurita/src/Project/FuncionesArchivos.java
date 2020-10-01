@@ -419,6 +419,32 @@ public class FuncionesArchivos {
             System.out.print("" + e.getMessage());
         }
     }
+    
+    public static void mostrarCajon(Connection con, JTable tabla) {
+        String[] filas = new String[4];
+        String[] columnas = {"ID CAJON", "NOMBRE ", "DESCRIPCION",  "PRECIO"};
+        DefaultTableModel model = new DefaultTableModel(null, columnas);
+
+        String consulta = "select * from cajonproducto";
+
+        Statement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(consulta);
+            while (rs.next()) {
+                for (int i = 0; i < 4; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+        } catch (SQLException e) {
+            System.out.print(" No se pudo enlistar");
+        }
+
+    }
 
     // Eliminar producto del cajon
     public static void eliminarProductoCajon(Connection con, int producto) {
