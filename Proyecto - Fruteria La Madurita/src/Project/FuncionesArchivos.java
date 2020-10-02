@@ -494,12 +494,13 @@ public class FuncionesArchivos {
     public static void ingresarFactura(Connection con, Facturacion fa) throws SQLException {
         PreparedStatement pst = null;
         String consulta = "insert into factura( id_factura, id_vendedor, id_cliente, total_pagar) "
-                + "values(factura_sql.nextval, ?,?,?)";
+                + "values(?,?,?,?)";
 
         pst = con.prepareStatement(consulta);
-        pst.setInt(1, fa.getId_vendedor());
-        pst.setInt(2, fa.getId_clien());
-        pst.setInt(3, fa.getTotal_pagar());
+        pst.setInt(1, fa.getId_factu());
+        pst.setInt(2, fa.getId_vendedor());
+        pst.setInt(3, fa.getId_clien());
+        pst.setInt(4, fa.getTotal_pagar());
         pst.execute();
         pst.close();
     }
