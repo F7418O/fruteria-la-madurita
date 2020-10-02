@@ -2,6 +2,9 @@
 package Ventanas;
 
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -171,9 +174,17 @@ ImageIcon factura;
     }//GEN-LAST:event_venta_winActionPerformed
 
     private void inventario_winActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventario_winActionPerformed
-        Cajon ot=new Cajon();
+        Cajon ot;
+    try {
+        ot = new Cajon();
         ot.setVisible(true);
         dispose();
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        
     }//GEN-LAST:event_inventario_winActionPerformed
 
     /**

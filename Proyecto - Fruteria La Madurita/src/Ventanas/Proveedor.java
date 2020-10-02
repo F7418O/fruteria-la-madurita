@@ -364,62 +364,31 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarActionPerformed
 
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
-     boolean ad=false, ad1=false, ad2=false;
-       
-    
-     if(empre_prov.getText().isBlank() || contac_prov.getText().isBlank() || dir_prov.getText().isBlank()
-                 || telef_prov.getText().isBlank() || id_prov.getText().isBlank() || ciud_prov.getText().isBlank()){
-            JOptionPane.showMessageDialog(this,"Complete los datos","Error",JOptionPane.ERROR_MESSAGE);
-        }
-     else{
-        if(empre_prov.getText().isBlank()){
-        JOptionPane.showMessageDialog(this,"Ingrese el Nombre de la Empresa","Error",JOptionPane.ERROR_MESSAGE);
-        }
-        if(id_prov.getText().isBlank()){
-        JOptionPane.showMessageDialog(this,"Ingrese RUC","Error",JOptionPane.ERROR_MESSAGE);
-        }else{
-        if( id_prov.getText().length() ==5){
-        ad1=true;
-        }
-        else{
+        Proveedores prov= null;       
+        if(empre_prov.getText().isEmpty() || id_prov.getText().isEmpty() || ciud_prov.getText().isEmpty() || 
+                        dir_prov.getText().isEmpty() || contac_prov.getText().isEmpty() || telef_prov.getText().isEmpty()){
+                    
+                    
+                    JOptionPane.showMessageDialog(null, "Llene todos los campos");
+                    
                 }
-        }
-        if(dir_prov.getText().isBlank()){
-        JOptionPane.showMessageDialog(this,"Ingrese la Dirección","Error",JOptionPane.ERROR_MESSAGE);
-        }
-        if(telef_prov.getText().isBlank()){
-        JOptionPane.showMessageDialog(this,"Ingrese el Telefono","Error",JOptionPane.ERROR_MESSAGE);
-        }else{
-        if(telef_prov.getText().length() == 10){
-        ad2=true;
-        }
-        }
-       
+                    else{
+                            
+                    try {
+                        this.con = Conexion.getConnection();
+                        prov= new Proveedores(Integer.parseInt(id_prov.getText()),empre_prov.getText(),contac_prov.getText()
+                        ,dir_prov.getText(), Integer.parseInt(telef_prov.getText()),ciud_prov.getText() );
+                        FuncionesArchivos.ingresarProveedor(con, prov);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+                    }         
+
+                                         
+
+            }
         
-        if(!(empre_prov.getText().isBlank() && contac_prov.getText().isBlank() && id_prov.getText().isBlank() && ciud_prov.getText().isBlank()
-                 && dir_prov.getText().isBlank() && telef_prov.getText().isBlank())){
-            if(ad==true && ad1==true && ad2==true){
-               
-                Proveedores p= new Proveedores(Integer.parseInt(id_prov.getText()),empre_prov.getText(),
-                contac_prov.getText(), dir_prov.getText(),Integer.parseInt(telef_prov.getText()),ciud_prov.getText());
-                
-                try {
-                    Connection con = Conexion.getConnection();
-                    FuncionesArchivos.ingresarProveedor(con, p);
-                    con.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Verifique bien los datos!","ADVICE",JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        }
         
     }//GEN-LAST:event_registrarActionPerformed
 
@@ -477,7 +446,7 @@ public class Proveedor extends javax.swing.JFrame {
                     Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }   
             }
         });
     }

@@ -9,11 +9,11 @@ public class Cajonproducto {
     private int id;
     private String nombre;
     private String descripcion;
-    private int precio;
+    private float precio;
     
     private int producto;
     
-    public Cajonproducto(int id,String nombre, String descripcion, int cantidad_total) {
+    public Cajonproducto(int id,String nombre, String descripcion, float precio) {
         this.id=id;    
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -29,7 +29,7 @@ public class Cajonproducto {
         return descripcion;
     }
 
-    public int getPrecio() {
+    public float getPrecio() {
 
         return precio;
     }
