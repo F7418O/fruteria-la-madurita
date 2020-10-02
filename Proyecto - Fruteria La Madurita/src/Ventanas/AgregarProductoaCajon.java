@@ -183,7 +183,7 @@ public class AgregarProductoaCajon extends javax.swing.JFrame {
              int prod = Integer.parseInt(cod_prod.getText());
              Connection con = Conexion.getConnection();
              FuncionesArchivos.ingresaProductoCajon(con, cj, prod);
-             con.close();
+             //con.close();
          }catch(SQLException e){
              System.out.print("Error :" + e);
          } catch (ClassNotFoundException ex) {

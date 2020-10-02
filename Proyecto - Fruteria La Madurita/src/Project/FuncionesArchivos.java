@@ -14,13 +14,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class FuncionesArchivos {
 
-    public static void agregarCliente(Connection con, Clientes cliente) throws IOException {
+    public static void agregarCliente(Connection con, Clientes cliente) throws IOException, SQLException {
         PreparedStatement pst = null;
         String consulta = "Insert into cliente (id_cliente, id_tipo , nombre, apellido , telefono)"
                 + "values(cliente_seq.nextval,?,?,?,?)";
@@ -31,14 +34,18 @@ public class FuncionesArchivos {
             pst.setString(3, cliente.getApellido());
             pst.setString(4, cliente.getTelefono());
             pst.execute();
-            pst.close();
+            
 
             System.out.print("Guardado correctamente");
 
         } catch (SQLException e) {
             System.out.print("Error" + e);
         }
+        finally{
+            pst.close();
+        }
     }
+    
 
     public static void mostrarClientes(Connection con, JTable tabla) {
 
@@ -66,8 +73,50 @@ public class FuncionesArchivos {
         }
 
     }
-
-    public static void eliminarCliente(Connection con, int id_cliente) {
+    
+    
+    public List<Clientes> select(String sql) {
+        List <Clientes> lstCliente=null;
+        
+        Connection conex=null;
+        try {
+           lstCliente=new ArrayList<Clientes>();
+            conex=Conexion.getConnection();
+            
+            String sqls="select id_clientes,identificacion,nombre,apellido,estado from clientes "+sql;
+            Statement st= conex.createStatement();
+            
+            ResultSet rs=st.executeQuery(sqls);
+            while(rs.next()){
+                Cliente c=new Cliente();
+                c.setCedula(rs.getInt("id_clientes"));
+                c.setIdentificacion(rs.getInt("identificacion"));
+                c.setNombre(rs.getString("nombre"));
+                c.setApellido(rs.getString("apellido"));
+                c.setEstado(rs.getString("estado"));
+                lstCliente.add(c);
+            }
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            try {
+                conex.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteImp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return lstCliente;
+        
+    }
+    
+    
+    
+    
+    public static void eliminarCliente(Connection con, int id_cliente) throws SQLException {
         PreparedStatement pst = null;
         String consulta = "delete from cliente where id_cliente =?";
 
@@ -75,11 +124,14 @@ public class FuncionesArchivos {
             pst = con.prepareStatement(consulta);
             pst.setInt(1, id_cliente);
             pst.execute();
-            pst.close();
+            
 
             System.out.print("Cliente eliminado correctamente");
         } catch (Exception e) {
             System.out.print(" No se pudo eliminar cliente");
+        }
+        finally{
+            pst.close();
         }
     }
 
@@ -384,7 +436,7 @@ public class FuncionesArchivos {
     //Cajonproducto
     public static void crearCajonproducto(Connection con, Cajonproducto cj) {
         PreparedStatement pst = null;
-        String consulta = "Insert into cajonproducto(id_cajonproducto, nombre, descripcion, cantidad)"
+        String consulta = "Insert into cajonproducto(id_cajonproducto, nombre, descripcion, precio)"
                 + "values(?,?,?,?)";
 
         try {
@@ -392,7 +444,7 @@ public class FuncionesArchivos {
             pst.setInt(1, cj.getId());
             pst.setString(2, cj.getNombre());
             pst.setString(3, cj.getDescripcion());
-            pst.setInt(4, cj.getPrecio());
+            pst.setFloat(4, cj.getPrecio());
             pst.execute();
             pst.close();
 
@@ -404,7 +456,7 @@ public class FuncionesArchivos {
     }
 
     //Producto_cajon
-    public static void ingresaProductoCajon(Connection con, int id_cj,int id_prod) {
+    public static void ingresaProductoCajon(Connection con, int id_cj,int id_prod) throws SQLException {
         PreparedStatement pst = null;
         String sql = "insert into producto_cajon (id_cajonproducto, id_producto) " + "values(?,?)";
 
@@ -413,10 +465,13 @@ public class FuncionesArchivos {
             pst.setInt(1, id_cj);
             pst.setInt(2, id_prod);
             pst.execute();
-            pst.close();
+            
             System.out.print("Guardado Correctamente");
         } catch (Exception e) {
             System.out.print("" + e.getMessage());
+        }
+        finally{
+            pst.close();
         }
     }
     

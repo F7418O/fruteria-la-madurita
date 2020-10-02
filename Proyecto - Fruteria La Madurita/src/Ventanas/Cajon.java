@@ -39,7 +39,7 @@ public class Cajon extends javax.swing.JFrame {
         txtPreprod = new javax.swing.JLabel();
         nom_prod = new javax.swing.JTextField();
         cod_prod = new javax.swing.JTextField();
-        descripcion = new javax.swing.JTextField();
+        descripcion_prod = new javax.swing.JTextField();
         precio_prod = new javax.swing.JTextField();
         agregar_prod = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -89,14 +89,14 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
-        descripcion.addActionListener(new java.awt.event.ActionListener() {
+        descripcion_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descripcionActionPerformed(evt);
+                descripcion_prodActionPerformed(evt);
             }
         });
-        descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+        descripcion_prod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                descripcionKeyTyped(evt);
+                descripcion_prodKeyTyped(evt);
             }
         });
 
@@ -125,7 +125,7 @@ public class Cajon extends javax.swing.JFrame {
                             .addComponent(txtPreprod))
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(45, 45, 45)
@@ -147,12 +147,12 @@ public class Cajon extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCant)
-                    .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPreprod)
                     .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         agregar_prod.getAccessibleContext().setAccessibleName("Agregar");
@@ -295,7 +295,7 @@ public class Cajon extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(99, 99, 99)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel_baseLayout.setVerticalGroup(
@@ -393,11 +393,7 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_volver_menuActionPerformed
 
     private void descripcion_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcion_prodKeyTyped
-    char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }     
+    
     }//GEN-LAST:event_descripcion_prodKeyTyped
 
     private void cod_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_prodKeyTyped
@@ -447,7 +443,7 @@ public class Cajon extends javax.swing.JFrame {
     private javax.swing.JTextField buscar_prod;
     private javax.swing.JTable cajon;
     private javax.swing.JTextField cod_prod;
-    private javax.swing.JTextField descripcion;
+    private javax.swing.JTextField descripcion_prod;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
