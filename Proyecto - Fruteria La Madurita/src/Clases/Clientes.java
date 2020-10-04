@@ -22,6 +22,10 @@ public class Clientes {
         this.telefono = telefono;
     }
     
+    public Clientes(){
+    
+    }
+    
      
     
 
@@ -52,6 +56,18 @@ public class Clientes {
 
     public void setN_cedula(int n_cedula) {
         this.n_cedula = n_cedula;
+    }
+
+    public void setId_tipo(int id_tipo) {
+        this.id_tipo = id_tipo;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
    

@@ -75,44 +75,48 @@ public class FuncionesArchivos {
     }
     
     
-    public List<Clientes> select(String sql) {
+    public static List<Clientes> mostrarClientes(String sql)  {
         List <Clientes> lstCliente=null;
         
         Connection conex=null;
         try {
            lstCliente=new ArrayList<Clientes>();
-            conex=Conexion.getConnection();
+            try {
+                conex=Conexion.getConnection();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FuncionesArchivos.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            String sqls="select id_clientes,identificacion,nombre,apellido,estado from clientes "+sql;
+            String sqls="select id_cliente,id_tipo,nombre,apellido,telefono from cliente "+sql;
             Statement st= conex.createStatement();
             
             ResultSet rs=st.executeQuery(sqls);
             while(rs.next()){
-                Cliente c=new Cliente();
-                c.setCedula(rs.getInt("id_clientes"));
-                c.setIdentificacion(rs.getInt("identificacion"));
+                Clientes c=new Clientes();
+                c.setN_cedula(rs.getInt("id_cliente"));
+                c.setId_tipo(rs.getInt("id_tipo"));
                 c.setNombre(rs.getString("nombre"));
                 c.setApellido(rs.getString("apellido"));
-                c.setEstado(rs.getString("estado"));
+                c.setTelefono(rs.getInt("telefono"));
                 lstCliente.add(c);
             }
             
             
-        } catch (SQLException e) {
+      } catch (SQLException e) {
             e.printStackTrace();
         }
         finally{
             try {
                 conex.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ClienteImp.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (SQLException ex) {
+              Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
         return lstCliente;
         
     }
-    
+   
 
     
     public static void eliminarCliente(Connection con, int id_cliente) throws SQLException {
