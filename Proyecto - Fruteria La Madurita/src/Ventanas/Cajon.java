@@ -1,6 +1,7 @@
 package Ventanas;
 
 import Clases.Cajonproducto;
+import Clases.Empleado;
 import Project.Conexion;
 import Project.FuncionesArchivos;
 import java.sql.Connection;
@@ -13,17 +14,23 @@ import java.util.logging.Logger;
  * @author Frael Campos
  */
 public class Cajon extends javax.swing.JFrame {
-
-     
+ 
+     Empleado emp;
     
-    public Cajon() throws ClassNotFoundException, SQLException {
-        setTitle("Cajon de Productos");
+    public Cajon( Empleado emp) throws ClassNotFoundException, SQLException {
+    setTitle("Cajon de Productos");
       initComponents();
       setLocationRelativeTo(null);
-      
-      mostrar();
+      setEmpleado(emp);
+     
     }
-    
+
+    private Cajon() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public void setEmpleado(Empleado emp){
+        this.emp=emp;
+    }
     public void mostrar() throws ClassNotFoundException, SQLException{
         Connection con= Conexion.getConnection();
         FuncionesArchivos.mostrarCajon(con, cajon);
@@ -49,20 +56,19 @@ public class Cajon extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        buscar_prod = new javax.swing.JTextField();
         txtBuca_prod = new javax.swing.JLabel();
-        ver_inventario = new javax.swing.JButton();
+        mostrar_cajones = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         cajon = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
-        modificar1 = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
         volver_menu = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 51));
 
         panel_base.setBackground(new java.awt.Color(204, 255, 255));
+        panel_base.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cajones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Georgia", 2, 18))); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -89,6 +95,11 @@ public class Cajon extends javax.swing.JFrame {
                 nom_prodActionPerformed(evt);
             }
         });
+        nom_prod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nom_prodKeyTyped(evt);
+            }
+        });
 
         cod_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +123,12 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
+        precio_prod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                precio_prodKeyTyped(evt);
+            }
+        });
+
         agregar_prod.setText("AGREGAR");
         agregar_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +142,7 @@ public class Cajon extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -135,14 +152,14 @@ public class Cajon extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(txtCant)
                             .addComponent(txtPreprod))
-                        .addGap(39, 39, 39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cod_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cod_prod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descripcion_prod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(precio_prod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(45, 45, 45)
                 .addComponent(agregar_prod)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +181,7 @@ public class Cajon extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPreprod)
                     .addComponent(precio_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         agregar_prod.getAccessibleContext().setAccessibleName("Agregar");
@@ -203,26 +220,12 @@ public class Cajon extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        buscar_prod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscar_prodActionPerformed(evt);
-            }
-        });
-        buscar_prod.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                buscar_prodKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                buscar_prodKeyTyped(evt);
-            }
-        });
-
         txtBuca_prod.setText("Buscar Producto Por:");
 
-        ver_inventario.setText("Mostrar Inventario");
-        ver_inventario.addActionListener(new java.awt.event.ActionListener() {
+        mostrar_cajones.setText("Mostrar Cajones");
+        mostrar_cajones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ver_inventarioActionPerformed(evt);
+                mostrar_cajonesActionPerformed(evt);
             }
         });
 
@@ -253,10 +256,10 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
-        modificar1.setText("ELIMINAR");
-        modificar1.addActionListener(new java.awt.event.ActionListener() {
+        eliminar.setText("ELIMINAR");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificar1ActionPerformed(evt);
+                eliminarActionPerformed(evt);
             }
         });
 
@@ -274,12 +277,10 @@ public class Cajon extends javax.swing.JFrame {
                         .addComponent(txtBuca_prod)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(buscar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136)
-                        .addComponent(modificar1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                        .addGap(327, 327, 327)
+                        .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(32, 32, 32)
-                        .addComponent(ver_inventario)))
+                        .addComponent(mostrar_cajones)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -288,39 +289,12 @@ public class Cajon extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuca_prod)
-                    .addComponent(buscar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ver_inventario)
-                    .addComponent(modificar1))
+                    .addComponent(mostrar_cajones)
+                    .addComponent(eliminar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout panel_baseLayout = new javax.swing.GroupLayout(panel_base);
-        panel_base.setLayout(panel_baseLayout);
-        panel_baseLayout.setHorizontalGroup(
-            panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(panel_baseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        panel_baseLayout.setVerticalGroup(
-            panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_baseLayout.createSequentialGroup()
-                .addGroup(panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         volver_menu.setText("Volver ");
@@ -330,30 +304,49 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("CAJÓN ");
+        javax.swing.GroupLayout panel_baseLayout = new javax.swing.GroupLayout(panel_base);
+        panel_base.setLayout(panel_baseLayout);
+        panel_baseLayout.setHorizontalGroup(
+            panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(panel_baseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(volver_menu)
+                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panel_baseLayout.setVerticalGroup(
+            panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_baseLayout.createSequentialGroup()
+                .addGroup(panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(volver_menu))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(volver_menu)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(volver_menu)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(panel_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -390,6 +383,10 @@ public class Cajon extends javax.swing.JFrame {
               
                 JOptionPane.showMessageDialog(null, "No se puedo agregar"+ex);
             }
+            nom_prod.setText("");
+            cod_prod.setText("");
+            precio_prod.setText("");
+            descripcion_prod.setText("");
         }
            
     }//GEN-LAST:event_agregar_prodActionPerformed
@@ -399,7 +396,8 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_cod_prodActionPerformed
 
     private void volver_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volver_menuActionPerformed
-      Menu ot=new Menu();
+      Menu ot=new Menu(this.emp);
+      ot.setEmpleado(this.emp);
       ot.setVisible(true);
      dispose();  
     }//GEN-LAST:event_volver_menuActionPerformed
@@ -416,25 +414,19 @@ public class Cajon extends javax.swing.JFrame {
      }     
     }//GEN-LAST:event_cod_prodKeyTyped
 
-    private void modificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar1ActionPerformed
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_modificar1ActionPerformed
+    }//GEN-LAST:event_eliminarActionPerformed
 
-    private void ver_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_inventarioActionPerformed
-        
-    }//GEN-LAST:event_ver_inventarioActionPerformed
-
-    private void buscar_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyTyped
-
-    }//GEN-LAST:event_buscar_prodKeyTyped
-
-    private void buscar_prodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_prodKeyPressed
-        ////////////////////gdgd
-    }//GEN-LAST:event_buscar_prodKeyPressed
-
-    private void buscar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_prodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscar_prodActionPerformed
+    private void mostrar_cajonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrar_cajonesActionPerformed
+         try {  
+             mostrar();
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_mostrar_cajonesActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -444,46 +436,54 @@ public class Cajon extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nom_prodAncestorMoved
 
+    private void nom_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nom_prodKeyTyped
+     char Val=evt.getKeyChar();
+     
+     if(Character.isDigit(Val)){
+     evt.consume();
+     }   
+    }//GEN-LAST:event_nom_prodKeyTyped
+
+    private void precio_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precio_prodKeyTyped
+       char Val=evt.getKeyChar();
+     
+     if(Character.isLetter(Val)){
+     evt.consume();
+     }   
+    }//GEN-LAST:event_precio_prodKeyTyped
+
   
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new Cajon().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new Cajon().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_prod;
-    private javax.swing.JTextField buscar_prod;
     private javax.swing.JTable cajon;
     private javax.swing.JTextField cod_prod;
     private javax.swing.JTextField descripcion_prod;
+    private javax.swing.JButton eliminar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton modificar1;
+    private javax.swing.JButton mostrar_cajones;
     private javax.swing.JTextField nom_prod;
     private javax.swing.JPanel panel_base;
     private javax.swing.JTextField precio_prod;
     private javax.swing.JLabel txtBuca_prod;
     private javax.swing.JLabel txtCant;
     private javax.swing.JLabel txtPreprod;
-    private javax.swing.JButton ver_inventario;
     private javax.swing.JButton volver_menu;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="33" green="33" red="0" type="rgb"/>
     </Property>
@@ -26,16 +26,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="panel_base" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" pref="101" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="volver_menu" min="-2" max="-2" attributes="0"/>
+              <Component id="panel_base" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -43,10 +36,6 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="volver_menu" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panel_base" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -60,6 +49,13 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="cc" type="rgb"/>
         </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder justification="2" title="Cajones">
+              <Font PropertyName="font" name="Georgia" size="18" style="2"/>
+            </TitledBorder>
+          </Border>
+        </Property>
       </Properties>
 
       <Layout>
@@ -69,9 +65,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="volver_menu" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
           </Group>
@@ -80,14 +78,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel1" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="volver_menu" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="18" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,7 +111,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -122,17 +123,17 @@
                                   <Component id="txtCant" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPreprod" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="descripcion_prod" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="cod_prod" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="precio_prod" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="cod_prod" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="descripcion_prod" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="precio_prod" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="agregar_prod" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="66" max="32767" attributes="0"/>
+                      <EmptySpace pref="75" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -160,7 +161,7 @@
                           <Component id="txtPreprod" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="precio_prod" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -190,6 +191,7 @@
               <Events>
                 <EventHandler event="ancestorMoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="nom_prodAncestorMoved"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nom_prodActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nom_prodKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="cod_prod">
@@ -208,6 +210,9 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="precio_prod">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="precio_prodKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="agregar_prod">
               <Properties>
@@ -241,7 +246,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -302,12 +307,10 @@
                               <Component id="txtBuca_prod" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                              <Component id="buscar_prod" min="-2" pref="132" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                              <Component id="modificar1" pref="92" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
+                              <Component id="eliminar" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="ver_inventario" min="-2" max="-2" attributes="0"/>
+                              <Component id="mostrar_cajones" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -320,37 +323,29 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtBuca_prod" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buscar_prod" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ver_inventario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="modificar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mostrar_cajones" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="265" max="-2" attributes="0"/>
-                      <EmptySpace pref="104" max="32767" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="buscar_prod">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscar_prodActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscar_prodKeyPressed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscar_prodKeyTyped"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JLabel" name="txtBuca_prod">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar Producto Por:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="ver_inventario">
+            <Component class="javax.swing.JButton" name="mostrar_cajones">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mostrar Inventario"/>
+                <Property name="text" type="java.lang.String" value="Mostrar Cajones"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ver_inventarioActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrar_cajonesActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -416,30 +411,25 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="modificar1">
+            <Component class="javax.swing.JButton" name="eliminar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modificar1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="volver_menu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Volver "/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="volver_menuActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="volver_menu">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Volver "/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="volver_menuActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CAJ&#xd3;N "/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

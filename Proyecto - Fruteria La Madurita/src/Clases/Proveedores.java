@@ -8,15 +8,15 @@ public class Proveedores {
     private String contacto;
     private String direccion;
     private int telefono;
-    private String ciudad;
+    private String dias_entrega;
 
-    public Proveedores(int id, String empresa, String contacto, String direccion, int telefono, String ciudad) {
+    public Proveedores(int id, String empresa, String contacto, String direccion, int telefono, String dias_entrega) {
         this.id = id;
         this.empresa = empresa;
         this.contacto = contacto;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.ciudad = ciudad;
+        this.dias_entrega = dias_entrega;
     }
 
 
@@ -54,8 +54,8 @@ public class Proveedores {
         return id;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getDias_entrega() {
+        return dias_entrega;
     }
 
         

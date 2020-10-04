@@ -3,8 +3,8 @@ package Ventanas;
 
 import Clases.Empleado;
 import Project.Conexion;
+import static Project.FuncionesArchivos.buscarEmpleado;
 import java.sql.Connection;
-import Project.FuncionesArchivos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,10 +12,11 @@ import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
-  
+    
     public Empleado ot;
     public Login() {
         initComponents();
+        setResizable(false);
         this.setTitle("Acceso al sistema");
         this.setLocationRelativeTo(null);
     }
@@ -39,17 +40,22 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Usuario");
+        jLabel1.setText("Cedula de Usuario");
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Georgia", 0, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contraseña");
 
         usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usuarioActionPerformed(evt);
+            }
+        });
+        usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                usuarioKeyTyped(evt);
             }
         });
 
@@ -60,6 +66,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnIngresar.setBackground(new java.awt.Color(236, 237, 239));
+        btnIngresar.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/nuevo.png"))); // NOI18N
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +76,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnSalir.setBackground(new java.awt.Color(236, 237, 239));
+        btnSalir.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/salir.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -172,11 +180,28 @@ public class Login extends javax.swing.JFrame {
             Connection con;
             try {
                 con = Conexion.getConnection();
-                ot = FuncionesArchivos.buscarEmpleado(con, Integer.parseInt(usuario.getText()),contraseña.getText());
+                ot = buscarEmpleado(con, Integer.parseInt(usuario.getText()),contraseña.getText());
                 if(ot != null){
-                    Menu o=new Menu();
+                    Menu o = new Menu(ot);
                     o.setVisible(true);
-                    dispose();  
+                    if(ot.getId_rol() == 1){
+                      o.inventario.setEnabled(true);
+                      o.factura_win.setEnabled(true);
+                      o.clientes.setEnabled(true);
+                      o.usuarioss.setEnabled(true);
+                      o.ventas.setEnabled(true);
+                      o.compras.setEnabled(true);
+                    }
+                    else if( ot.getId_rol() == 2){
+                       o.inventario.setEnabled(false);
+                      o.factura_win.setEnabled(false);
+                      o.clientes.setEnabled(true);
+                      o.usuarioss.setEnabled(false);
+                      o.ventas.setEnabled(true);
+                      o.compras.setEnabled(true);
+                    }
+                    dispose();
+                                       
                 }else{
                     JOptionPane.showMessageDialog(null,"Verifique bien sus datos");
                 }
@@ -196,6 +221,15 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyTyped
+     char Val=evt.getKeyChar();
+     
+     if(Character.isLetter(Val) || usuario.getText().length()> 9){
+     evt.consume();
+     }
+     
+    }//GEN-LAST:event_usuarioKeyTyped
 
     /**
      * @param args the command line arguments

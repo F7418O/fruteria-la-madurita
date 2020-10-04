@@ -20,7 +20,15 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
     public Empleado emp;
 
-    public RegistrarUsuario() {
+    private RegistrarUsuario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void setEmpleado(Empleado emp){
+        this.emp=emp;
+    }
+
+    public RegistrarUsuario(Empleado emp) {
         setResizable(false);
         setTitle("Registro");
         initComponents();
@@ -36,9 +44,11 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         // TextPrompt fecha= new TextPrompt("Fecha de Nacimiento", fecha_na_r);
         TextPrompt telef = new TextPrompt("Telefono", telefono_r);
 
-        String[] roles = {"------", "Administrador", "Vendedor"};
+        String[] roles = {"------", "Administrador - 1", "Vendedor - 2"};
         rol.setModel(new javax.swing.DefaultComboBoxModel(roles));
         rol.setSelectedIndex(0);
+        
+        setEmpleado(emp);
     }
 
     @SuppressWarnings("unchecked")
@@ -279,7 +289,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_nombre_rActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
-        Login ot = new Login();
+        Menu ot = new Menu(emp);
         ot.setVisible(true);
         dispose();
 

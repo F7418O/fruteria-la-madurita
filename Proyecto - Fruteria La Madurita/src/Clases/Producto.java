@@ -6,17 +6,17 @@ public class Producto {
     private int id;
     
     private String nom_prod;
-    private int cant_prod;
+    private int peso_prod;
     private String fecha_ingreso;
-    private int peso;
-    
+   
     private int proveedor;
 
-    public Producto(String nom_prod, int cant_prod, String fecha_ingreso, int peso) {
+    public Producto(int id, String nom_prod, int cant_prod, String fecha_ingreso, int pro) {
+        this.id=id;
         this.nom_prod = nom_prod;
-        this.cant_prod = cant_prod;
+        this.peso_prod = cant_prod;
         this.fecha_ingreso = fecha_ingreso;
-        this.peso = peso;
+        this.proveedor=pro;
     }
 
     public int getId() {
@@ -44,17 +44,15 @@ public class Producto {
         this.fecha_ingreso = fecha_ingreso;
     }
 
-    public int getCant_prod() {
-        return cant_prod;
+    public int getPeso_prod() {
+        return peso_prod;
     }
 
-    public void setCant_prod(int cant_prod) {
-        this.cant_prod = cant_prod;
+    public void setPeso_prod(int cant_prod) {
+        this.peso_prod = cant_prod;
     }
 
-    public int getPeso() {
-        return peso;
-    }
+  
 
     public int getProveedor() {
         return proveedor;

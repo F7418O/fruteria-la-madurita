@@ -6,22 +6,24 @@ package Clases;
 */
 public class Pedidos {
 
-    private int id_cajon;
+    private int id_pedido;
     private int cod_cliente;
     private String fecha_pedido;
     private String fecha_entrega;
-    private String forma_pago;
+    private int forma_pago;
+    private String descripcion;
 
-    public Pedidos(int numero_pedido, int id_cajon, int cod_cliente, String fecha_pedido, String fecha_entrega, String forma_pago) {
-        this.id_cajon = id_cajon;
+    public Pedidos(int id_pedido, int cod_cliente, String fecha_pedido, String fecha_entrega, int forma_pago , String de) {
+        this.id_pedido = id_pedido;
         this.cod_cliente = cod_cliente;
         this.fecha_pedido = fecha_pedido;
         this.fecha_entrega = fecha_entrega;
         this.forma_pago = forma_pago;
-    }
+        this.descripcion=de;
+    }   
 
-    public int getId_cajon() {
-        return id_cajon;
+    public int getId_pedido() {
+        return id_pedido;
     }
 
     public int getCod_cliente() {
@@ -36,11 +38,13 @@ public class Pedidos {
         return fecha_entrega;
     }
 
-    public String getForma_pago() {
+    public int getForma_pago() {
         return forma_pago;
     }
     
     
-
+    public String getDescripcion(){
+        return descripcion;
+    }
     
 }
