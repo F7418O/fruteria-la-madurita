@@ -81,11 +81,7 @@ public class FuncionesArchivos {
         Connection conex=null;
         try {
            lstCliente=new ArrayList<Clientes>();
-            try {
-                conex=Conexion.getConnection();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FuncionesArchivos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           conex=Conexion.getConnection();
             
             String sqls="select id_cliente,id_tipo,nombre,apellido,telefono from cliente "+sql;
             Statement st= conex.createStatement();
@@ -118,7 +114,6 @@ public class FuncionesArchivos {
     }
    
 
-    
     public static void eliminarCliente(Connection con, int id_cliente) throws SQLException {
         PreparedStatement pst = null;
         String consulta = "delete from cliente where id_cliente =?";
@@ -657,6 +652,48 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
         }
 
     }
+    
+    
+    public static List<Cajonproducto> consultarCajonP(String sql){
+    
+        List <Cajonproducto> lstCajonP=null;
+        
+        Connection conex=null;
+        try {
+           lstCajonP=new ArrayList<Cajonproducto>();
+             conex=Conexion.getConnection();
+            
+            String sqls="select id_cajonproducto,nombre,descripcion,precio from cajonproducto "+sql;
+            Statement st= conex.createStatement();
+            
+            ResultSet rs=st.executeQuery(sqls);
+            while(rs.next()){
+                Cajonproducto c=new Cajonproducto();
+                c.setId(rs.getInt("id_cajonproducto"));
+                c.setNombre(rs.getString("nombre"));
+                c.setDescripcion(rs.getString("descripcion"));
+                c.setPrecio(rs.getFloat("precio"));
+                
+                lstCajonP.add(c);
+            }
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            try {
+                conex.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Cajonproducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return lstCajonP;
+        
+        
+    }
+    
 
     // Eliminar producto del cajon
     public static void eliminarProducto_Cajon(Connection con, int producto) {

@@ -10,7 +10,15 @@ public class Cajonproducto {
     private String nombre;
     private String descripcion;
     private float precio;
-    
+    private int cantidad_total;
+
+    public int getCantidad_total() {
+        return cantidad_total;
+    }
+
+    public void setCantidad_total(int cantidad_total) {
+        this.cantidad_total = cantidad_total;
+    }
     private int producto;
     
     public Cajonproducto(int id,String nombre, String descripcion, float precio) {
@@ -19,6 +27,22 @@ public class Cajonproducto {
         this.descripcion = descripcion;
         this.precio = precio;
 
+    }
+    
+    public Cajonproducto(){
+    
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
 
     public String getNombre() {

@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,11 +15,19 @@ import java.sql.SQLException;
  */
 public class Conexion {
     
-    public static Connection getConnection() throws ClassNotFoundException, SQLException{
+    public static Connection getConnection() {
         Connection conexion = null;
         String host = "192.168.100.62";
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        conexion = DriverManager.getConnection("jdbc:oracle:thin:@"+host+":1521:XE", "CAMPOS_FF", "1234");
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            conexion = DriverManager.getConnection("jdbc:oracle:thin:@"+host+":1521:XE", "CAMPOS_FF", "1234");
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(conexion != null)
         return conexion;
         else

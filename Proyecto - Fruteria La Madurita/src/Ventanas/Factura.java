@@ -3,20 +3,26 @@ package Ventanas;
 
 
 
+import Clases.Cajonproducto;
 import Clases.Clientes;
 import Project.FuncionesArchivos;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
 public class Factura extends javax.swing.JInternalFrame {
-
-
+    
+    //Atributos declarados
+    List<Cajonproducto> lstCajonProducto;
+    
    
     public Factura() {
+        lstCajonProducto = new ArrayList<Cajonproducto>();
         initComponents();
         setVisible(true);
     }
@@ -47,7 +53,7 @@ public class Factura extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        cbCliente = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Nueva Factura");
@@ -86,6 +92,11 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel4.setText("Cantidad");
 
         txtCantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar24x24.png"))); // NOI18N
         btnAgregar.setToolTipText("Adiciona un producto a la factura");
@@ -157,9 +168,6 @@ public class Factura extends javax.swing.JInternalFrame {
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2020", "2021", "2022", "2023" }));
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jTextField1.setEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,9 +192,9 @@ public class Factura extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jTextField1)
-                                            .addComponent(cboProducto, 0, 194, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cboProducto, 0, 194, Short.MAX_VALUE)
+                                            .addComponent(cbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,11 +238,10 @@ public class Factura extends javax.swing.JInternalFrame {
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(btnBuscarCliente)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnBuscarCliente)
+                    .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -273,7 +280,7 @@ public class Factura extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_formInternalFrameOpened
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
+         
        
  
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -309,7 +316,7 @@ public class Factura extends javax.swing.JInternalFrame {
         oCliente = lstCliente.get(0);
         if(consulta.equals(Integer.toString(oCliente.getN_cedula()))){
         
-           jTextField1.setText(oCliente.getNombre()+" "+oCliente.getApellido());
+           cbCliente.addItem(oCliente.getNombre()+" "+oCliente.getApellido());
            
         }else{
            JOptionPane.showMessageDialog(null,"No se pudo encontrar al cliente","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
@@ -318,12 +325,32 @@ public class Factura extends javax.swing.JInternalFrame {
        }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
+
+       String consulta = JOptionPane.showInputDialog("Ingrese código del cajón:" );
+       Cajonproducto oCajonP=null;
+       List<Cajonproducto> lstCajonP=FuncionesArchivos.consultarCajonP("where id_cajonproducto="+consulta);
+       if(lstCajonP.size() == 0){
+           JOptionPane.showMessageDialog(null,"No se pudo encontrar cajón","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
+       }
+       else{
        
+        oCajonP = lstCajonP.get(0);
+        if(consulta.equals(Integer.toString(oCajonP.getId()))){
+        
+           cboProducto.addItem(oCajonP.getNombre());
+           
+        }else{
+           JOptionPane.showMessageDialog(null,"No se pudo encontrar el cajón","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
+        }
+       }   
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void txtTotalCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalCantidadActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalCantidadActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
 
 
     
@@ -351,6 +378,7 @@ public static void main(String[] args){
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGrabar;
+    private javax.swing.JComboBox<String> cbCliente;
     private javax.swing.JComboBox cboProducto;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -364,7 +392,6 @@ public static void main(String[] args){
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblFactura;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtTotalCantidad;
