@@ -1,64 +1,30 @@
-package Formularios;
+package Ventanas;
 
-import Clases.Datos;
-import Clases.Opcion;
-import Clases.Utilidades;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Date;
+
+
+
+import Clases.Cajonproducto;
+import Clases.Clientes;
+import Project.FuncionesArchivos;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
+
 
 public class Factura extends javax.swing.JInternalFrame {
-
-    private Datos misDatos;
-    private DefaultTableModel miTabla;
-
-    public void limpiarTabla() {
-        try {
-            DefaultTableModel modelo = (DefaultTableModel)tblFactura.getModel();
-            int filas = tblFactura.getRowCount();
-            
-            for (int i = 0; i < filas; i++) {
-                modelo.removeRow(0);
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private void totales() {
-        int num = tblFactura.getRowCount();
-        int sumCant = 0;
-        int sumVal = 0;
-        
-        for (int i = 0; i < num; i++) {
-            sumCant += Utilidades.objectToInt( tblFactura.getValueAt(i, 3) );
-            sumVal += Utilidades.objectToInt(tblFactura.getValueAt(i, 4) );
-        }
-        
-        txtTotalCantidad.setText("" + sumCant);
-        txtTotalValor.setText("" + sumVal);
-    }
-    private void llenarTabla() {
-        String titulos[] = { "ID Producto", "Descripción", "Precio", "Cantidad", "Valor" };
-        miTabla = new DefaultTableModel(null, titulos);
-        tblFactura.setModel(miTabla);
-        
-        // Alinear campos numericos a la derecha
-        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-        tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-        tblFactura.getColumnModel().getColumn(2).setCellRenderer(tcr);
-        tblFactura.getColumnModel().getColumn(3).setCellRenderer(tcr);
-        tblFactura.getColumnModel().getColumn(4).setCellRenderer(tcr);
-    }
-    public void setDatos(Datos misDatos) {
-        this.misDatos = misDatos;
-    }
+    
+    //Atributos declarados
+    List<Cajonproducto> lstCajonProducto;
+    
+   
     public Factura() {
+        lstCajonProducto = new ArrayList<Cajonproducto>();
         initComponents();
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -68,7 +34,6 @@ public class Factura extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cboCliente = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         cboProducto = new javax.swing.JComboBox();
         btnBuscarProducto = new javax.swing.JButton();
@@ -88,24 +53,25 @@ public class Factura extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
+        cbCliente = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Nueva Factura");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
         });
 
@@ -126,6 +92,11 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel4.setText("Cantidad");
 
         txtCantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar24x24.png"))); // NOI18N
         btnAgregar.setToolTipText("Adiciona un producto a la factura");
@@ -168,13 +139,13 @@ public class Factura extends javax.swing.JInternalFrame {
 
         tblFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tblFactura.setEnabled(false);
@@ -213,28 +184,33 @@ public class Factura extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCantidad))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cboProducto, 0, 194, Short.MAX_VALUE)
+                                            .addComponent(cbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGap(127, 127, 127)
+                                                .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addComponent(jSeparator3)
-                            .addComponent(jScrollPane1))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,20 +240,20 @@ public class Factura extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarCliente))
+                    .addComponent(btnBuscarCliente)
+                    .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(btnBuscarProducto)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -290,174 +266,29 @@ public class Factura extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtTotalCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        // Cargamos los clientes
-        Opcion opc;
-        
-        for (int i = 0; i < misDatos.numeroClientes(); i++) {
-            opc = new Opcion(misDatos.getClientes()[i].getIdCliente(), 
-                    misDatos.getClientes()[i].getNombres() + " "+ misDatos.getClientes()[i].getApellidos());
-            cboCliente.addItem(opc);
-        }
-        
-        // Cargamos los productos
-        for (int i = 0; i < misDatos.numeroProductos(); i++) {
-            opc = new Opcion( misDatos.getProductos()[i].getIdProducto(),
-                    misDatos.getProductos()[i].getDescripcion());
-            cboProducto.addItem(opc);
-        }
-        
-        // Colocamos fecha del sistema
-        txtFecha.setText(Utilidades.formatDate(new Date()));
-        
-        // Mostramos totales en 0
-        txtTotalCantidad.setText("0");
-        txtTotalValor.setText("0");
-        
-        // Cargamos la tabla
-        llenarTabla();
+     
     }//GEN-LAST:event_formInternalFrameOpened
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-//        if (cboProducto.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un producto");
-//            cboProducto.requestFocusInWindow();
-//            return;
-//        }
-//        if (cboCliente.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un cliente");
-//            cboCliente.requestFocusInWindow();
-//            return;
-//        }
-        if (txtCantidad.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe ingresar un cantidad");
-            txtCantidad.requestFocusInWindow();
-            return;
-        }
-        if (!Utilidades.isNumeric(txtCantidad.getText())) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor numérico");
-            txtCantidad.requestFocusInWindow();
-            return;
-        }
-        
-        int cantidad = Integer.parseInt(txtCantidad.getText());
-        if (cantidad <= 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor mayor a 0");
-            txtCantidad.requestFocusInWindow();
-            return;
-        }
-        
-        // Buscamos los datos del producto selecionado
-        int pos = misDatos.posicionProducto(((Opcion)cboProducto.getSelectedItem()).getValor());
-        
-        // Adicionamos el producto a la tabla
-        String registro[] = new String[5];
-        registro[0] = misDatos.getProductos()[pos].getIdProducto();
-        registro[1] = misDatos.getProductos()[pos].getDescripcion();
-        registro[2] = "" + misDatos.getProductos()[pos].getPrecio();
-        registro[3] = "" + cantidad;
-        registro[4] = "" + (cantidad * misDatos.getProductos()[pos].getPrecio());
-        miTabla.addRow(registro);
-        
-        // Inicializamos campos
-        cboProducto.setSelectedIndex(0);
-        txtCantidad.setText("");
-        cboProducto.requestFocusInWindow();
-        
-        // Actualizamos totales
-        totales();
+         
+       
  
     }//GEN-LAST:event_btnAgregarActionPerformed
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-//        if (cboCliente.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un cliente");
-//            cboCliente.requestFocusInWindow();
-//            return;
-//        }
-        
-        int totCan = new Integer(txtTotalCantidad.getText());
-        if (totCan == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe ingresar detalle de la factura");
-            cboProducto.requestFocusInWindow();
-            return;
-        }
-        
-        int rpta = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de grabar la factura?");
-        if (rpta != 0) {
-            return;
-        }
-        
-        // adicionamos un consecutivo a la factura
-        int numFac = misDatos.getNumFac() + 1;
-        
-        //grabamos la factura
-        FileWriter fw = null;
-        PrintWriter pw = null;
-        try {
-            fw = new FileWriter("Data/facturas.txt", true);
-            pw = new PrintWriter(fw);
-            
-            //encabezado de factura
-            String aux = "1|" 
-                    + numFac + "|" 
-                    + ((Opcion)cboCliente.getSelectedItem()).getValor() + "|"
-                    + ((Opcion)cboCliente.getSelectedItem()).getDescripcion() + "|"
-                    + txtFecha.getText();
-            pw.println(aux);
-            
-            //detalle de factura
-            int num = tblFactura.getRowCount();          
-            for (int i = 0; i < num; i++) {
-                aux = "2|"
-                        + Utilidades.objectToString(tblFactura.getValueAt(i, 0)) + "|"
-                        + Utilidades.objectToString(tblFactura.getValueAt(i, 1)) + "|"
-                        + Utilidades.objectToString(tblFactura.getValueAt(i, 2)) + "|"
-                        + Utilidades.objectToString(tblFactura.getValueAt(i, 3)) + "|"
-                        + Utilidades.objectToString(tblFactura.getValueAt(i, 4));
-                pw.println(aux);
-            }
-            
-        } catch (Exception ex1) {
-            ex1.printStackTrace();
-            
-        } finally {
-            try {
-                if (fw != null)
-                    fw.close();
-
-            } catch (Exception ex2) {
-                ex2.printStackTrace();
-            }
-        }
-        
-        JOptionPane.showMessageDialog(rootPane, "Factura " + numFac + " generada con éxito");
-        misDatos.setNumFac(numFac);
-        
-        //inicializamos campos
-        cboCliente.setSelectedIndex(0);
-        cboProducto.setSelectedIndex(0);
-        txtCantidad.setText("");
-        limpiarTabla();
-        totales();
-        cboCliente.requestFocusInWindow();
         
     }//GEN-LAST:event_btnGrabarActionPerformed
     private void btnBorrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarTodoActionPerformed
-        int rpta = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de borrar el detalle de la factura?");
-        if (rpta != 0) {
-            return;
-        }
-        limpiarTabla();
-        totales();
+       
     }//GEN-LAST:event_btnBorrarTodoActionPerformed
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (cboProducto.getSelectedIndex() == 0) {
@@ -467,63 +298,79 @@ public class Factura extends javax.swing.JInternalFrame {
         }
         
         try {
-            DefaultTableModel modelo = (DefaultTableModel)tblFactura.getModel();
-            int filas = tblFactura.getRowCount();
             
-            for (int i = 0; i < filas; i++) {
-                String idTabla =  Utilidades.objectToString(tblFactura.getValueAt(i, 0));
-                String idCombo = ((Opcion)cboProducto.getSelectedItem()).getValor();
-                if (idTabla.equals(idCombo)) {
-                    modelo.removeRow(i);
-                    totales();
-                    return;
-                }
-            }
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        frmBusquedaCliente miBusquedaCliente = new frmBusquedaCliente(null, closable);
-        miBusquedaCliente.setDatos(misDatos);
-        miBusquedaCliente.setLocationRelativeTo(null);
-        miBusquedaCliente.setVisible(true);
-        String rpta = miBusquedaCliente.getRespuesta();
+       String consulta = JOptionPane.showInputDialog("Ingrese número de cédula:" );
+       Clientes oCliente=null;
+       List<Clientes> lstCliente=FuncionesArchivos.mostrarClientes("where id_cliente="+consulta);
+       if(lstCliente.size() == 0){
+           JOptionPane.showMessageDialog(null,"No se pudo encontrar al cliente","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
+       }
+       else{
+       
+        oCliente = lstCliente.get(0);
+        if(consulta.equals(Integer.toString(oCliente.getN_cedula()))){
         
-        if (rpta.equals(""))
-            return;
-        
-        for (int i = 0; i < cboCliente.getItemCount(); i++) {
-            if (((Opcion)cboCliente.getItemAt(i)).getValor().equals(rpta)) {
-                cboCliente.setSelectedIndex(i);
-                return;
-            }
+           cbCliente.addItem(oCliente.getNombre()+" "+oCliente.getApellido());
+           
+        }else{
+           JOptionPane.showMessageDialog(null,"No se pudo encontrar al cliente","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
         }
+       
+       }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
-        frmBusquedaProducto miBusquedaProducto= new frmBusquedaProducto(null, closable);
-        miBusquedaProducto.setDatos(misDatos);
-        miBusquedaProducto.setLocationRelativeTo(null);
-        miBusquedaProducto.setVisible(true);
-        String rpta = miBusquedaProducto.getRespuesta();
+
+       String consulta = JOptionPane.showInputDialog("Ingrese código del cajón:" );
+       Cajonproducto oCajonP=null;
+       List<Cajonproducto> lstCajonP=FuncionesArchivos.consultarCajonP("where id_cajonproducto="+consulta);
+       if(lstCajonP.size() == 0){
+           JOptionPane.showMessageDialog(null,"No se pudo encontrar cajón","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
+       }
+       else{
+       
+        oCajonP = lstCajonP.get(0);
+        if(consulta.equals(Integer.toString(oCajonP.getId()))){
         
-        if (rpta.equals(""))
-            return;
-        
-        for (int i = 0; i < cboProducto.getItemCount(); i++) {
-            if (((Opcion)cboProducto.getItemAt(i)).getValor().equals(rpta)) {
-                cboProducto.setSelectedIndex(i);
-                return;
-            }
+           cboProducto.addItem(oCajonP.getNombre());
+           
+        }else{
+           JOptionPane.showMessageDialog(null,"No se pudo encontrar el cajón","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
         }
+       }   
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void txtTotalCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalCantidadActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalCantidadActionPerformed
 
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
 
+
+    
+    
+    
+    
+public static void main(String[] args){
+    Factura oFactura= new Factura();
+    
+    JFrame frame=new JFrame("Ventana");
+    frame.getContentPane().add(oFactura,BorderLayout.CENTER);
+    frame.setBounds(200, 100, 800, 600);
+    frame.setVisible(true);
+
+}
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBorrarTodo;
@@ -531,7 +378,7 @@ public class Factura extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGrabar;
-    private javax.swing.JComboBox cboCliente;
+    private javax.swing.JComboBox<String> cbCliente;
     private javax.swing.JComboBox cboProducto;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -550,3 +397,5 @@ public class Factura extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtTotalCantidad;
     // End of variables declaration//GEN-END:variables
 }
+
+
