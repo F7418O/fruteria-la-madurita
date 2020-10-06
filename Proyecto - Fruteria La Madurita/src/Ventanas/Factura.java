@@ -362,7 +362,7 @@ public static void main(String[] args){
     
     JFrame frame=new JFrame("Ventana");
     frame.getContentPane().add(oFactura,BorderLayout.CENTER);
-    frame.setBounds(500, 500, 800, 600);
+    frame.setBounds(200, 100, 800, 600);
     frame.setVisible(true);
 
 }
