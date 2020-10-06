@@ -26,6 +26,9 @@ public class Clientes {
     
     }
     
+    public String toString(){
+        return this.nombre+" "+this.apellido;
+    }
      
     
 

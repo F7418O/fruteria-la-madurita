@@ -32,6 +32,12 @@ public class Cajonproducto {
     public Cajonproducto(){
     
     }
+    
+    public String toString(){
+        return this.nombre;
+    }
+    
+    
 
     public void setNombre(String nombre) {
         this.nombre = nombre;

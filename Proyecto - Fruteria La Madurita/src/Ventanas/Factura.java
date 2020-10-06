@@ -5,25 +5,73 @@ package Ventanas;
 
 import Clases.Cajonproducto;
 import Clases.Clientes;
+import Clases.DetalleFactura;
 import Project.FuncionesArchivos;
+import Tablemodel.GenericDomainTableModel;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 
 
 public class Factura extends javax.swing.JInternalFrame {
     
     //Atributos declarados
     List<Cajonproducto> lstCajonProducto;
-    
+    private JComboBox<Clientes> JComboBox;
+    final List columnIdentifiers = Arrays.asList(new Object[]{"ID","Cantidad", "Cajon", "Precio"});
+    private GenericDomainTableModel<DetalleFactura> Model;
    
     public Factura() {
         lstCajonProducto = new ArrayList<Cajonproducto>();
         initComponents();
+        
+        this.Model = new GenericDomainTableModel<DetalleFactura>(this.columnIdentifiers) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch(columnIndex) {
+                    case 0: return Integer.class;
+	            case 1: return Integer.class;
+	            case 2: return Cajonproducto.class;
+	            case 3: return Float.class;
+	        }
+	        throw new ArrayIndexOutOfBoundsException(columnIndex);
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+	        DetalleFactura oDetalle = getDomainObject(rowIndex);
+	        switch(columnIndex) {
+	            case 0: return oDetalle.getId_detalle();
+	            case 1: return oDetalle.getCantidad();
+	            case 2: return oDetalle.getoCajonP();
+                    case 3: return oDetalle.getPrecio();
+	                default: throw new ArrayIndexOutOfBoundsException(columnIndex);
+	        }
+	    }
+
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+	        DetalleFactura oDetalle = getDomainObject(rowIndex);
+	        switch(columnIndex) {
+	            case 0: oDetalle.setId_detalle((int)aValue); break;
+	            case 1: oDetalle.setCantidad((int)aValue);; break;
+	            case 2: oDetalle.setoCajonP((Cajonproducto)aValue); break;
+                    case 3: oDetalle.setPrecio((float)aValue); break;
+	                default: throw new ArrayIndexOutOfBoundsException(columnIndex);
+	        }
+	        notifyTableCellUpdated(rowIndex, columnIndex); // NO olvidar!!!
+	    }
+        };
+        
+        this.tblFactura.setModel(Model);
         setVisible(true);
     }
 
@@ -35,7 +83,7 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cboProducto = new javax.swing.JComboBox();
+        cboProducto = new javax.swing.JComboBox<>();
         btnBuscarProducto = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
@@ -280,7 +328,12 @@ public class Factura extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_formInternalFrameOpened
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-         
+        Cajonproducto oCajon=(Cajonproducto)cboProducto.getSelectedItem();
+        int cantidad=Integer.parseInt(txtCantidad.getText());
+        float precio=oCajon.getPrecio()*cantidad;
+        DetalleFactura oDetalle = new DetalleFactura(Model.getRowCount()+1,1, cantidad, precio, oCajon);
+       
+        Model.addRow(oDetalle);
        
  
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -315,8 +368,10 @@ public class Factura extends javax.swing.JInternalFrame {
        
         oCliente = lstCliente.get(0);
         if(consulta.equals(Integer.toString(oCliente.getN_cedula()))){
-        
-           cbCliente.addItem(oCliente.getNombre()+" "+oCliente.getApellido());
+            
+           
+           cbCliente.addItem(oCliente);
+           
            
         }else{
            JOptionPane.showMessageDialog(null,"No se pudo encontrar al cliente","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
@@ -337,7 +392,7 @@ public class Factura extends javax.swing.JInternalFrame {
         oCajonP = lstCajonP.get(0);
         if(consulta.equals(Integer.toString(oCajonP.getId()))){
         
-           cboProducto.addItem(oCajonP.getNombre());
+           cboProducto.addItem(oCajonP);
            
         }else{
            JOptionPane.showMessageDialog(null,"No se pudo encontrar el cajón","Error en la búsqueda", JOptionPane.ERROR_MESSAGE);
@@ -364,6 +419,7 @@ public static void main(String[] args){
     frame.getContentPane().add(oFactura,BorderLayout.CENTER);
     frame.setBounds(200, 100, 800, 600);
     frame.setVisible(true);
+    
 
 }
     
@@ -378,8 +434,9 @@ public static void main(String[] args){
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGrabar;
-    private javax.swing.JComboBox<String> cbCliente;
-    private javax.swing.JComboBox cboProducto;
+    private javax.swing.JComboBox<Clientes> cbCliente;
+    private javax.swing.JComboBox<Cajonproducto
+    > cboProducto;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
