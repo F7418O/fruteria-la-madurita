@@ -538,8 +538,8 @@ public class Productov extends javax.swing.JFrame {
 
         cod_prod.setText(productos_.getValueAt(seleccion, 0) + "");
         nom_prod.setText(productos_.getValueAt(seleccion, 1) + "");
-        peso_prod.setText(productos_.getValueAt(seleccion, 2) + "");
-        prov_prod.setText(productos_.getValueAt(seleccion, 3) + "");
+        peso_prod.setText(productos_.getValueAt(seleccion, 3) + "");
+        prov_prod.setText(productos_.getValueAt(seleccion, 4) + "");
     }//GEN-LAST:event_productos_MouseClicked
 
     private void nom_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nom_prodKeyTyped
