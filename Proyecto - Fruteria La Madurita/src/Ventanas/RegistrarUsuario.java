@@ -266,8 +266,6 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 FuncionesArchivos.crearEmpleado(con, emp);
                 con.close();
                 JOptionPane.showMessageDialog(null, "Usuario ingresado correctamente");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

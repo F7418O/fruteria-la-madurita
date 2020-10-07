@@ -223,8 +223,6 @@ public class AgregarProductoaCajon extends javax.swing.JFrame {
          }catch(SQLException e){
              JOptionPane.showMessageDialog(null,"Verifique bien los datos");
              System.out.print("Error :" + e);
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(AgregarProductoaCajon.class.getName()).log(Level.SEVERE, null, ex);
          }
          
      }
@@ -233,14 +231,8 @@ public class AgregarProductoaCajon extends javax.swing.JFrame {
     private void mostrar_cajonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrar_cajonesActionPerformed
         
         Connection con;
-        try {
-            con = Conexion.getConnection();
-            FuncionesArchivos.mostrarCajon_producto(con, producto_cajon);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AgregarProductoaCajon.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AgregarProductoaCajon.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        con = Conexion.getConnection();
+        FuncionesArchivos.mostrarCajon_producto(con, producto_cajon);
         
     }//GEN-LAST:event_mostrar_cajonesActionPerformed
 

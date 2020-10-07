@@ -407,8 +407,6 @@ public class Productov extends javax.swing.JFrame {
                 FuncionesArchivos.ingresaProve_producto(con1, prod);
 
                 JOptionPane.showMessageDialog(null, "Producto Ingresado correctamente");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Productov.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(Productov.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -445,8 +443,6 @@ public class Productov extends javax.swing.JFrame {
                 this.con = Conexion.getConnection();
                 FuncionesArchivos.modificarProducto(con, prod);
                 con.close();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -504,8 +500,6 @@ public class Productov extends javax.swing.JFrame {
                     FuncionesArchivos.eliminarProducto(con, Integer.parseInt(id));
 
                     JOptionPane.showMessageDialog(null, "Producto eliminado");
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
                 }

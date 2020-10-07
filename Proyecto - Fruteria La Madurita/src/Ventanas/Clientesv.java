@@ -311,8 +311,6 @@ public class Clientesv extends javax.swing.JFrame {
                     FuncionesArchivos.eliminarCliente(con, id);
                     con.close();
                     JOptionPane.showMessageDialog(null, "Cliente Eliminado");
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -384,8 +382,6 @@ public class Clientesv extends javax.swing.JFrame {
                 con = Conexion.getConnection();
                 FuncionesArchivos.agregarCliente(con, cli);
                 JOptionPane.showMessageDialog(null, "Cliente Registrado");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Clientesv.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(Clientesv.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -449,8 +445,6 @@ public class Clientesv extends javax.swing.JFrame {
                 FuncionesArchivos.modificarCliente(con, cli);
                 con.close();
                 JOptionPane.showMessageDialog(null, "Datos Actualizados");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             }

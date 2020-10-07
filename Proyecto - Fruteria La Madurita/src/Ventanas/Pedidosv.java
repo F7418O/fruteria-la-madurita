@@ -366,16 +366,9 @@ public class Pedidosv extends javax.swing.JFrame {
              Pedidos ped= new Pedidos(Integer.parseInt(cod_pedido.getText()), Integer.parseInt(id_cliente.getText()),
              fecha_ped, fecha_sal , pago, descripcion.getText());
              Connection con;
-          try {
-              con = Conexion.getConnection();
-              FuncionesArchivos.crearPedido(con, ped);
-              
-              JOptionPane.showMessageDialog(null, "Pedido ingresado correctamente");
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Pedidosv.class.getName()).log(Level.SEVERE, null, ex);
-          } catch (SQLException ex) {
-              Logger.getLogger(Pedidosv.class.getName()).log(Level.SEVERE, null, ex);
-          }
+             con = Conexion.getConnection();
+             FuncionesArchivos.crearPedido(con, ped);
+             JOptionPane.showMessageDialog(null, "Pedido ingresado correctamente");
             
           forma_pago.setSelectedIndex(0);
           descripcion.setText("");
@@ -412,18 +405,10 @@ public class Pedidosv extends javax.swing.JFrame {
         if (fila > -1) {
             int dv = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar este pedido");
             if (dv == 0) {
-                try {
-                    Connection con = Conexion.getConnection();
-                    String id = tabla_pedido.getValueAt(fila, 0).toString();
-
-                    FuncionesArchivos.eliminarPedido(con, Integer.parseInt(id));
-
-                    JOptionPane.showMessageDialog(null, "Pedido eliminado");
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Connection con = Conexion.getConnection();
+                String id = tabla_pedido.getValueAt(fila, 0).toString();
+                FuncionesArchivos.eliminarPedido(con, Integer.parseInt(id));
+                JOptionPane.showMessageDialog(null, "Pedido eliminado");
             }
 
         } else {

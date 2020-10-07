@@ -77,46 +77,45 @@ public class FuncionesArchivos {
     }
     
     
-    public List<Clientes> select(String sql) {
+    public static List<Clientes> mostrarClientes(String sql)  {
         List <Clientes> lstCliente=null;
         
         Connection conex=null;
         try {
            lstCliente=new ArrayList<Clientes>();
-            conex=Conexion.getConnection();
+           conex=Conexion.getConnection();
             
-            String sqls="select id_clientes,identificacion,nombre,apellido,estado from clientes "+sql;
+            String sqls="select id_cliente,id_tipo,nombre,apellido,telefono from cliente "+sql;
             Statement st= conex.createStatement();
             
             ResultSet rs=st.executeQuery(sqls);
             while(rs.next()){
-                Cliente c=new Cliente();
-                c.setCedula(rs.getInt("id_clientes"));
-                c.setIdentificacion(rs.getInt("identificacion"));
+                Clientes c=new Clientes();
+                c.setN_cedula(rs.getInt("id_cliente"));
+                c.setId_tipo(rs.getInt("id_tipo"));
                 c.setNombre(rs.getString("nombre"));
                 c.setApellido(rs.getString("apellido"));
-                c.setEstado(rs.getString("estado"));
+                c.setTelefono(rs.getInt("telefono"));
                 lstCliente.add(c);
             }
             
             
-        } catch (SQLException e) {
+      } catch (SQLException e) {
             e.printStackTrace();
         }
         finally{
             try {
                 conex.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ClienteImp.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (SQLException ex) {
+              Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
         return lstCliente;
         
     }
-    
+   
 
-    
     public static void eliminarCliente(Connection con, int id_cliente) throws SQLException {
         PreparedStatement pst = null;
         String consulta = "delete from cliente where id_cliente =?";
@@ -663,6 +662,48 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
         }
 
     }
+    
+    
+    public static List<Cajonproducto> consultarCajonP(String sql){
+    
+        List <Cajonproducto> lstCajonP=null;
+        
+        Connection conex=null;
+        try {
+           lstCajonP=new ArrayList<Cajonproducto>();
+             conex=Conexion.getConnection();
+            
+            String sqls="select id_cajonproducto,nombre,descripcion,precio from cajonproducto "+sql;
+            Statement st= conex.createStatement();
+            
+            ResultSet rs=st.executeQuery(sqls);
+            while(rs.next()){
+                Cajonproducto c=new Cajonproducto();
+                c.setId(rs.getInt("id_cajonproducto"));
+                c.setNombre(rs.getString("nombre"));
+                c.setDescripcion(rs.getString("descripcion"));
+                c.setPrecio(rs.getFloat("precio"));
+                
+                lstCajonP.add(c);
+            }
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            try {
+                conex.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Cajonproducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return lstCajonP;
+        
+        
+    }
+    
 
     // Eliminar producto del cajon
     public static void eliminarProducto_Cajon(Connection con, int producto) {
@@ -708,23 +749,31 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     }
 
     //facturacion
-    public static void ingresarFactura(Connection con, Facturacion fa) throws SQLException {
+    public static void ingresarFactura(Connection con, Facturacion fa,int id_factura) throws SQLException {
         PreparedStatement pst = null;
+<<<<<<< HEAD
         String consulta = "insert into factura( id_factura, id_vendedor, id_cliente, total_pagar) "
                 + "values(sql.nextval,?,?,?)";
 
         pst = con.prepareStatement(consulta);
        // pst.setInt(1, fa.getId_factu());//
+=======
+        String consulta = "insert into factura( id_factura, id_vendedor, id_cliente) "
+                + "values(?,?,?)";
+
+        pst = con.prepareStatement(consulta);
+        pst.setInt(1, id_factura);
+>>>>>>> 7b3c769b98cde06536a2d464beb06e72ee83ea48
         pst.setInt(2, fa.getId_vendedor());
         pst.setInt(3, fa.getId_clien());
-        pst.setInt(4, fa.getTotal_pagar());
         pst.execute();
         pst.close();
     }
 
     //Detalle_factura
-    public static void ingresarDetalleFactura(Connection con, Facturacion fa) throws SQLException {
+    public static void ingresarDetalleFactura(Connection con, Facturacion fa, int id_factura) throws SQLException {
         PreparedStatement pst = null;
+<<<<<<< HEAD
         String consulta = "insert into detalle_factura( id_factura, fecha ,cantidad_total, total_pagar) "
                 + "values(?,?,?,?)";
 
@@ -733,10 +782,21 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
         pst.setInt(2, fa.getFecha());
         pst.setInt(3, fa.getCantidadTotal());
         pst.setInt(4, fa.getTotal_pagar());
+=======
+        String consulta = "insert into detalle_factura( id_factura, fecha , cantidad_total, total_pagar) "
+                + "values(?,?,?,?)";
+
+        pst = con.prepareStatement(consulta);
+        pst.setInt(1, id_factura);
+        pst.setString(2, fa.getFecha_ven());
+        pst.setInt(3, fa.getCantidad_total());
+        pst.setFloat(4, fa.getTotal_pagar());
+>>>>>>> 7b3c769b98cde06536a2d464beb06e72ee83ea48
         pst.execute();
         pst.close();
     }
 
+<<<<<<< HEAD
     public static void ingresarCajon_detalleFactura(Connection con, Facturacion fa) throws SQLException {
         PreparedStatement pst = null;
         String consulta = "insert into cajon_detallefactura( id_factura, cantidad, id_cajonproducto) "
@@ -749,6 +809,51 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
         pst.execute();
         pst.close();
     }
+=======
+   
+    
+    //Cajon_detallefactura
+    
+    public static void ingresarCajon_DetalleFactura(Connection con, int id_factura, int cantidad, int id_cajon) throws SQLException {
+        PreparedStatement pst = null;
+        String consulta = "insert into cajon_detallefactura( id_factura, cantidad, id_cajonproducto) "
+                + "values(?,?,?)";
+
+        pst = con.prepareStatement(consulta);
+        pst.setInt(1, id_factura);
+        pst.setInt(2, cantidad);
+        pst.setInt(3, id_cajon);
+        pst.execute();
+        pst.close();
+    }
+    
+    
+    
+    public static int cantidadREgistro(String sql){
+        Connection conex=null;
+        int cantidad=0;
+           conex=Conexion.getConnection();
+            
+            String sqls="select count(*) from "+sql;
+             
+        try {
+            Statement st=conex.createStatement();
+            ResultSet rs=st.executeQuery(sqls);
+            while(rs.next()){
+                cantidad++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FuncionesArchivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+            return cantidad;
+    
+    }
+    
+    
+    
+    
+>>>>>>> 7b3c769b98cde06536a2d464beb06e72ee83ea48
     public static boolean validaCedula(String x) {
         int suma = 0;
         if (x.length() == 9) {

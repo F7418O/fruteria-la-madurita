@@ -178,38 +178,31 @@ public class Login extends javax.swing.JFrame {
         }
         else{
             Connection con;
-            try {
-                con = Conexion.getConnection();
-                ot = buscarEmpleado(con, Integer.parseInt(usuario.getText()),contraseña.getText());
-                if(ot != null){
-                    Menu o = new Menu(ot);
-                    o.setVisible(true);
-                    if(ot.getId_rol() == 1){
-                      o.inventario.setEnabled(true);
-                      o.factura_win.setEnabled(true);
-                      o.clientes.setEnabled(true);
-                      o.usuarioss.setEnabled(true);
-                      o.ventas.setEnabled(true);
-                      o.compras.setEnabled(true);
-                    }
-                    else if( ot.getId_rol() == 2){
-                       o.inventario.setEnabled(false);
-                      o.factura_win.setEnabled(false);
-                      o.clientes.setEnabled(true);
-                      o.usuarioss.setEnabled(false);
-                      o.ventas.setEnabled(true);
-                      o.compras.setEnabled(true);
-                    }
-                    dispose();
-                                       
-                }else{
-                    JOptionPane.showMessageDialog(null,"Verifique bien sus datos");
+            con = Conexion.getConnection();
+            ot = buscarEmpleado(con, Integer.parseInt(usuario.getText()),contraseña.getText());
+            if(ot != null){
+                Menu o = new Menu(ot);
+                o.setVisible(true);
+                if(ot.getId_rol() == 1){
+                    o.inventario.setEnabled(true);
+                    o.factura_win.setEnabled(true);
+                    o.clientes.setEnabled(true);
+                    o.usuarioss.setEnabled(true);
+                    o.ventas.setEnabled(true);
+                    o.compras.setEnabled(true);
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                else if( ot.getId_rol() == 2){
+                    o.inventario.setEnabled(false);
+                    o.factura_win.setEnabled(false);
+                    o.clientes.setEnabled(true);
+                    o.usuarioss.setEnabled(false);
+                    o.ventas.setEnabled(true);
+                    o.compras.setEnabled(true);
+                }
+                dispose();
                 
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }else{
+                JOptionPane.showMessageDialog(null,"Verifique bien sus datos");
             }
             
             

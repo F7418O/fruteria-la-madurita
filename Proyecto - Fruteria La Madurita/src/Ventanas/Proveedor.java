@@ -393,8 +393,6 @@ public class Proveedor extends javax.swing.JFrame {
                 con.close();
                 
                 JOptionPane.showMessageDialog(null, "Modificado Correctamente");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -426,8 +424,6 @@ public class Proveedor extends javax.swing.JFrame {
                         FuncionesArchivos.ingresarProveedor(con, prov);
                         
                         JOptionPane.showMessageDialog(null,"Guardado Correctamente");
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
                         Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
                     }         

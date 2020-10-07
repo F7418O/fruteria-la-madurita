@@ -386,8 +386,6 @@ public class Cajon extends javax.swing.JFrame {
                 con.close();
                 JOptionPane.showMessageDialog(null, "Se ha agregado correctamente");
 
-            } catch (ClassNotFoundException ex) {
-
             } catch (SQLException ex) {
 
                 JOptionPane.showMessageDialog(null, "No se puedo agregar" + ex);
@@ -436,8 +434,6 @@ public class Cajon extends javax.swing.JFrame {
                     FuncionesArchivos.eliminarProducto(con, Integer.parseInt(id));
 
                     JOptionPane.showMessageDialog(null, "Cajon eliminado");
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
                 }
