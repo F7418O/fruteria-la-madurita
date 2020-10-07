@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Frael Campos
@@ -21,24 +22,25 @@ public class Productov extends javax.swing.JFrame {
     private Productov() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-     public void setEmpleado(Empleado emp){
-         this.emp=emp;
-     }
-    
+
+    public void setEmpleado(Empleado emp) {
+        this.emp = emp;
+    }
+
     public Productov(Empleado emp) {
         setTitle("Inventario");
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
         setEmpleado(emp);
-            
-                 
+
     }
-    
-    public void mostrar() throws ClassNotFoundException, SQLException{
-        Connection con= Conexion.getConnection();
+
+    public void mostrar() throws ClassNotFoundException, SQLException {
+        Connection con = Conexion.getConnection();
         FuncionesArchivos.mostrarProductoConProv(con, productos_);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,7 +64,6 @@ public class Productov extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtBuca_prod = new javax.swing.JLabel();
         ver_productos = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         productos_ = new javax.swing.JTable();
         eliminar = new javax.swing.JButton();
@@ -119,14 +120,14 @@ public class Productov extends javax.swing.JFrame {
             }
         });
 
-        agregar_prod.setText("AGREGAR");
+        agregar_prod.setText("Agregar");
         agregar_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregar_prodActionPerformed(evt);
             }
         });
 
-        modificar.setText("MODIFICAR");
+        modificar.setText("Modificar");
         modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modificarActionPerformed(evt);
@@ -243,8 +244,6 @@ public class Productov extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código del Producto", "Nombre", "Fecha de Ingreso" }));
-
         productos_.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 productos_MouseClicked(evt);
@@ -252,7 +251,7 @@ public class Productov extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(productos_);
 
-        eliminar.setText("ELIMINAR");
+        eliminar.setText("Eliminar");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarActionPerformed(evt);
@@ -268,9 +267,7 @@ public class Productov extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(txtBuca_prod)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(291, 291, 291)
+                        .addGap(454, 454, 454)
                         .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(105, 105, 105)
                         .addComponent(ver_productos))
@@ -286,7 +283,6 @@ public class Productov extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuca_prod)
                     .addComponent(ver_productos)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,29 +386,31 @@ public class Productov extends javax.swing.JFrame {
     }//GEN-LAST:event_peso_prodActionPerformed
 
     private void agregar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_prodActionPerformed
-        String fecha= dia.getSelectedItem().toString() +"/"+mes.getSelectedItem().toString()+"/"
-                +anio.getSelectedItem().toString();
+        String fecha = dia.getSelectedItem().toString() + "/" + mes.getSelectedItem().toString() + "/"
+                + anio.getSelectedItem().toString();
         Producto prod = null;
-      if(nom_prod.getText().isEmpty() || peso_prod.getText().isEmpty() || cod_prod.getText().isEmpty() ||
-              prov_prod.getText().isEmpty() ){
-          JOptionPane.showMessageDialog(null,"Llene todos los campos");
-        
-        }else{
-          int id=Integer.parseInt(cod_prod.getText());
-          int peso=Integer.parseInt(peso_prod.getText());
-          int id_prove=Integer.parseInt(prov_prod.getText());
-          prod= new Producto(id,nom_prod.getText(),peso,fecha,id_prove);
-          Connection con;
+        if (nom_prod.getText().isEmpty() || peso_prod.getText().isEmpty() || cod_prod.getText().isEmpty()
+                || prov_prod.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llene todos los campos");
+
+        } else {
+            int id = Integer.parseInt(cod_prod.getText());
+            int peso = Integer.parseInt(peso_prod.getText());
+            int id_prove = Integer.parseInt(prov_prod.getText());
+            prod = new Producto(id, nom_prod.getText(), peso, fecha, id_prove);
+            Connection con;
+            Connection con1;
             try {
                 con = Conexion.getConnection();
                 FuncionesArchivos.ingresarProducto(con, prod);
-                FuncionesArchivos.ingresaProve_producto(con, prod);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Productov.class.getName()).log(Level.SEVERE, null, ex);
+                con1 = Conexion.getConnection();
+                FuncionesArchivos.ingresaProve_producto(con1, prod);
+
+                JOptionPane.showMessageDialog(null, "Producto Ingresado correctamente");
             } catch (SQLException ex) {
                 Logger.getLogger(Productov.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
+
             nom_prod.setText("");
             peso_prod.setText("");
             cod_prod.setText("");
@@ -420,10 +418,8 @@ public class Productov extends javax.swing.JFrame {
             dia.setSelectedIndex(0);
             mes.setSelectedIndex(0);
             anio.setSelectedIndex(0);
-          
-          
-          
-      }         
+
+        }
     }//GEN-LAST:event_agregar_prodActionPerformed
 
     private void cod_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_prodActionPerformed
@@ -431,93 +427,98 @@ public class Productov extends javax.swing.JFrame {
     }//GEN-LAST:event_cod_prodActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        if(nom_prod.getText().isEmpty() || peso_prod.getText().isEmpty() || cod_prod.getText().isEmpty()
-                || prov_prod.getText().isEmpty() ){
+        if (nom_prod.getText().isEmpty() || peso_prod.getText().isEmpty() || cod_prod.getText().isEmpty()
+                || prov_prod.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Seleccione un proveedor");
-        }
-        else{
-            String fecha= dia.getSelectedItem().toString() +"/"+mes.getSelectedItem().toString()+"/"
-                +anio.getSelectedItem().toString();
-            int id= Integer.parseInt(cod_prod.getText());
+        } else {
+            String fecha = dia.getSelectedItem().toString() + "/" + mes.getSelectedItem().toString() + "/"
+                    + anio.getSelectedItem().toString();
+            int id = Integer.parseInt(cod_prod.getText());
             int peso = Integer.parseInt(peso_prod.getText());
             int prov = Integer.parseInt(prov_prod.getText());
-            Producto prod= 
-            new Producto(id, nom_prod.getText(),peso,fecha, prov); 
+            Producto prod
+                    = new Producto(id, nom_prod.getText(), peso, fecha, prov);
             try {
-                
-                this.con= Conexion.getConnection();
+
+                this.con = Conexion.getConnection();
                 FuncionesArchivos.modificarProducto(con, prod);
                 con.close();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
-        
+
         }
     }//GEN-LAST:event_modificarActionPerformed
 
     private void volver_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volver_menuActionPerformed
-      Menu ot= new Menu(this.emp);
-       ot.setVisible(true);
-       if(this.emp.getId_rol() == 1){
-                      ot.inventario.setEnabled(true);
-                      ot.factura_win.setEnabled(true);
-                      ot.clientes.setEnabled(true);
-                      ot.usuarioss.setEnabled(true);
-                      ot.ventas.setEnabled(true);
-                      ot.compras.setEnabled(true);
-                    }
-                    else if( this.emp.getId_rol() == 2){
-                       ot.inventario.setEnabled(false);
-                      ot.factura_win.setEnabled(false);
-                      ot.clientes.setEnabled(true);
-                      ot.usuarioss.setEnabled(false);
-                      ot.ventas.setEnabled(true);
-                      ot.compras.setEnabled(true);}
-       dispose();
+        Menu ot = new Menu(this.emp);
+        ot.setVisible(true);
+        if (this.emp.getId_rol() == 1) {
+            ot.inventario.setEnabled(true);
+            ot.factura_win.setEnabled(true);
+            ot.clientes.setEnabled(true);
+            ot.usuarioss.setEnabled(true);
+            ot.ventas.setEnabled(true);
+            ot.compras.setEnabled(true);
+        } else if (this.emp.getId_rol() == 2) {
+            ot.inventario.setEnabled(false);
+            ot.factura_win.setEnabled(false);
+            ot.clientes.setEnabled(true);
+            ot.usuarioss.setEnabled(false);
+            ot.ventas.setEnabled(true);
+            ot.compras.setEnabled(true);
+        }
+        dispose();
     }//GEN-LAST:event_volver_menuActionPerformed
 
     private void peso_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_peso_prodKeyTyped
-    char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }     
+        char Val = evt.getKeyChar();
+
+        if (Character.isLetter(Val)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_peso_prodKeyTyped
 
     private void cod_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_prodKeyTyped
-     char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }     
+        char Val = evt.getKeyChar();
+
+        if (Character.isLetter(Val)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_cod_prodKeyTyped
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-      int fila = productos_.getSelectedRow();
-        
-        if(fila > -1){
-           try {
-            Connection con= Conexion.getConnection();
-            String id= productos_.getValueAt(fila, 0).toString();
-            
-            FuncionesArchivos.eliminarProducto(con, Integer.parseInt(id));
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        int fila = productos_.getSelectedRow();
+
+        if (fila > -1) {
+            int dv = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar este producto");
+            if (dv == 0) {
+                try {
+                    Connection con = Conexion.getConnection();
+                    String id = productos_.getValueAt(fila, 0).toString();
+
+                    FuncionesArchivos.eliminarProducto(con, Integer.parseInt(id));
+
+                    JOptionPane.showMessageDialog(null, "Producto eliminado");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            
-        }else{
-            JOptionPane.showMessageDialog(null,"Selecione un producto");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione un producto");
         }
-        
+
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void ver_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_productosActionPerformed
-        
+        try {
+            mostrar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Productov.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Productov.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ver_productosActionPerformed
 
     private void diaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diaActionPerformed
@@ -525,33 +526,32 @@ public class Productov extends javax.swing.JFrame {
     }//GEN-LAST:event_diaActionPerformed
 
     private void prov_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prov_prodKeyTyped
-     char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }  
+        char Val = evt.getKeyChar();
+
+        if (Character.isLetter(Val)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_prov_prodKeyTyped
 
     private void productos_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productos_MouseClicked
-        int seleccion= productos_.rowAtPoint(evt.getPoint());
-       
-       cod_prod.setText(productos_.getValueAt(seleccion, 0)+"");
-       nom_prod.setText(productos_.getValueAt(seleccion, 1)+"");
-       peso_prod.setText(productos_.getValueAt(seleccion, 2)+"");
-       prov_prod.setText(productos_.getValueAt(seleccion, 3)+"");
+        int seleccion = productos_.rowAtPoint(evt.getPoint());
+
+        cod_prod.setText(productos_.getValueAt(seleccion, 0) + "");
+        nom_prod.setText(productos_.getValueAt(seleccion, 1) + "");
+        peso_prod.setText(productos_.getValueAt(seleccion, 2) + "");
+        prov_prod.setText(productos_.getValueAt(seleccion, 3) + "");
     }//GEN-LAST:event_productos_MouseClicked
 
     private void nom_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nom_prodKeyTyped
-       char Val=evt.getKeyChar();
-     
-     if(Character.isDigit(Val)){
-     evt.consume();
-     } 
+        char Val = evt.getKeyChar();
+
+        if (Character.isDigit(Val)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_nom_prodKeyTyped
 
-  
     public static void main(String args[]) {
-      
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -567,7 +567,6 @@ public class Productov extends javax.swing.JFrame {
     private javax.swing.JTextField cod_prod;
     private javax.swing.JComboBox<String> dia;
     private javax.swing.JButton eliminar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

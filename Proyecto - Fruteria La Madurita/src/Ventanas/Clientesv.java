@@ -1,4 +1,3 @@
-
 package Ventanas;
 
 import Clases.Clientes;
@@ -11,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Frael Campos
@@ -23,26 +23,29 @@ public class Clientesv extends javax.swing.JFrame {
     private Clientesv() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public void setEmpleado(Empleado emp){
-        this.emp=emp;
+
+    public void setEmpleado(Empleado emp) {
+        this.emp = emp;
     }
+
     public Clientesv(Empleado emp) {
         setTitle("Clientes");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
-        
-        String []ti = {"----","General - 1 ","VIP - 2"};
+
+        String[] ti = {"----", "General - 1 ", "VIP - 2"};
         tipo.setModel(new javax.swing.DefaultComboBoxModel(ti));
-        
+
         setEmpleado(emp);
     }
-    
-    public void mostrar() throws ClassNotFoundException, SQLException{
+
+    public void mostrar() throws ClassNotFoundException, SQLException {
         Connection con = Conexion.getConnection();
-        FuncionesArchivos.mostrarClientes(con, jTable1);
-        
+        FuncionesArchivos.mostrarClientes(con, table_cli);
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +56,7 @@ public class Clientesv extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        mostrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         nombre = new javax.swing.JTextField();
         apellido = new javax.swing.JTextField();
@@ -68,7 +71,7 @@ public class Clientesv extends javax.swing.JFrame {
         ingresar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_cli = new javax.swing.JTable();
         eliminar = new javax.swing.JButton();
         volver = new javax.swing.JButton();
 
@@ -76,10 +79,10 @@ public class Clientesv extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        jButton1.setText("Mostrar Clientes");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        mostrar.setText("Mostrar Clientes");
+        mostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                mostrarActionPerformed(evt);
             }
         });
 
@@ -202,7 +205,7 @@ public class Clientesv extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_cli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -213,7 +216,12 @@ public class Clientesv extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        table_cli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_cliMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table_cli);
 
         eliminar.setText("Eliminar Cliente");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -241,7 +249,7 @@ public class Clientesv extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(57, 57, 57)
-                                .addComponent(jButton1)
+                                .addComponent(mostrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(volver))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -261,7 +269,7 @@ public class Clientesv extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(mostrar)
                             .addComponent(volver))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -289,11 +297,35 @@ public class Clientesv extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
+        if (nombre.getText().isEmpty() || apellido.getText().isEmpty() || telefono.getText().isEmpty()
+                || cedula.getText().isEmpty() || tipo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+        } else {
+            int dec = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar este cliente");
+            if (dec == 0) {
+
+                try {
+                    int id = Integer.parseInt(cedula.getText());
+
+                    this.con = Conexion.getConnection();
+                    FuncionesArchivos.eliminarCliente(con, id);
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Cliente Eliminado");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                nombre.setText("");
+                apellido.setText("");
+                telefono.setText("");
+                cedula.setText("");
+                tipo.setSelectedIndex(0);
+            }
+
+        }
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
-      char Val = evt.getKeyChar();
+        char Val = evt.getKeyChar();
 
         if (Character.isDigit(Val)) {
             evt.consume();
@@ -337,38 +369,36 @@ public class Clientesv extends javax.swing.JFrame {
     }//GEN-LAST:event_telefonoKeyTyped
 
     private void ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarActionPerformed
-        if( nombre.getText().isEmpty()|| apellido.getText().isEmpty()|| 
-                cedula.getText().isEmpty() || tipo.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(null,"Llene todos los campos");
-        }
-        else{
+        if (nombre.getText().isEmpty() || apellido.getText().isEmpty()
+                || cedula.getText().isEmpty() || tipo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Llene todos los campos");
+        } else {
             int ced = Integer.parseInt(cedula.getText());
             int tel = Integer.parseInt(telefono.getText());
-            int tp= tipo.getSelectedIndex();
-            Clientes cli = new Clientes(tp, ced,nombre.getText(),apellido.getText(),tel);
+            int tp = tipo.getSelectedIndex();
+            Clientes cli = new Clientes(tp, ced, nombre.getText(), apellido.getText(), tel);
             Connection con;
             try {
                 con = Conexion.getConnection();
                 FuncionesArchivos.agregarCliente(con, cli);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Clientesv.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Cliente Registrado");
             } catch (SQLException ex) {
                 Logger.getLogger(Clientesv.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(Clientesv.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             nombre.setText("");
             apellido.setText("");
             cedula.setText("");
-            
+
             telefono.setText("");
             tipo.setSelectedIndex(0);
-            
+
         }
     }//GEN-LAST:event_ingresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
         try {
             mostrar();
         } catch (ClassNotFoundException ex) {
@@ -376,54 +406,67 @@ public class Clientesv extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Clientesv.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_mostrarActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
-       Menu ot= new Menu(this.emp);
-       ot.setVisible(true);
-       if(this.emp.getId_rol() == 1){
-                      ot.inventario.setEnabled(true);
-                      ot.factura_win.setEnabled(true);
-                      ot.clientes.setEnabled(true);
-                      ot.usuarioss.setEnabled(true);
-                      ot.ventas.setEnabled(true);
-                      ot.compras.setEnabled(true);
-                    }
-                    else if( this.emp.getId_rol() == 2){
-                       ot.inventario.setEnabled(false);
-                      ot.factura_win.setEnabled(false);
-                      ot.clientes.setEnabled(true);
-                      ot.usuarioss.setEnabled(false);
-                      ot.ventas.setEnabled(true);
-                      ot.compras.setEnabled(true);}
-       dispose();
+        Menu ot = new Menu(this.emp);
+        ot.setVisible(true);
+        if (this.emp.getId_rol() == 1) {
+            ot.inventario.setEnabled(true);
+            ot.factura_win.setEnabled(true);
+            ot.clientes.setEnabled(true);
+            ot.usuarioss.setEnabled(true);
+            ot.ventas.setEnabled(true);
+            ot.compras.setEnabled(true);
+        } else if (this.emp.getId_rol() == 2) {
+            ot.inventario.setEnabled(false);
+            ot.factura_win.setEnabled(false);
+            ot.clientes.setEnabled(true);
+            ot.usuarioss.setEnabled(false);
+            ot.ventas.setEnabled(true);
+            ot.compras.setEnabled(true);
+        }
+        dispose();
     }//GEN-LAST:event_volverActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-         if(nombre.getText().isEmpty() || apellido.getText().isEmpty() || telefono.getText().isEmpty()
-                || cedula.getText().isEmpty() || tipo.getSelectedIndex() ==0 ){
+        if (nombre.getText().isEmpty() || apellido.getText().isEmpty() || telefono.getText().isEmpty()
+                || cedula.getText().isEmpty() || tipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
-        }
-        else{
-            int ti= tipo.getSelectedIndex();
-            int tel= Integer.parseInt(telefono.getText());
+        } else {
+            int ti = tipo.getSelectedIndex();
+            int tel = Integer.parseInt(telefono.getText());
             int ced = Integer.parseInt(cedula.getText());
-            Clientes cli= 
-            new Clientes(ti,ced, nombre.getText(),apellido.getText(),tel);
+            Clientes cli
+                    = new Clientes(ti, ced, nombre.getText(), apellido.getText(), tel);
             try {
-                
-                this.con= Conexion.getConnection();
+
+                this.con = Conexion.getConnection();
                 FuncionesArchivos.modificarCliente(con, cli);
                 con.close();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Datos Actualizados");
             } catch (SQLException ex) {
                 Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
-        
+
+            nombre.setText("");
+            apellido.setText("");
+            telefono.setText("");
+            cedula.setText("");
+            tipo.setSelectedIndex(0);
+
         }
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void table_cliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_cliMouseClicked
+        int sel = table_cli.rowAtPoint(evt.getPoint());
+
+        nombre.setText(table_cli.getValueAt(sel, 2) + "");
+        apellido.setText(table_cli.getValueAt(sel, 3) + "");
+        telefono.setText(table_cli.getValueAt(sel, 4) + "");
+        cedula.setText(table_cli.getValueAt(sel, 0) + "");
+        tipo.setSelectedIndex(Integer.parseInt(table_cli.getValueAt(sel, 1) + ""));
+    }//GEN-LAST:event_table_cliMouseClicked
 
     /**
      * @param args the command line arguments
@@ -465,7 +508,6 @@ public class Clientesv extends javax.swing.JFrame {
     private javax.swing.JTextField cedula;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton ingresar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -474,9 +516,10 @@ public class Clientesv extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton modificar;
+    private javax.swing.JButton mostrar;
     private javax.swing.JTextField nombre;
+    private javax.swing.JTable table_cli;
     private javax.swing.JTextField telefono;
     private javax.swing.JComboBox<String> tipo;
     private javax.swing.JButton volver;

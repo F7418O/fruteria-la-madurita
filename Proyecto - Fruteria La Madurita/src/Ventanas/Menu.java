@@ -40,10 +40,10 @@ private Empleado emp ;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
- public void setEmpleado(Empleado emp){
+    public void setEmpleado(Empleado emp){
         this.emp=emp;
     }
- public  Empleado getEmpleado(){
+     public  Empleado getEmpleado(){
         return this.emp;
     }
 

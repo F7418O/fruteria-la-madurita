@@ -34,7 +34,7 @@ public class Pedidosv extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
    
-        String []fp= {"----","Efectivo","Tarjeta"};
+        String []fp= {"----","Efectivo - 1","Tarjeta - 2"};
         forma_pago.setModel(new javax.swing.DefaultComboBoxModel(fp));
         
         setEmpleado(emp);
@@ -106,6 +106,11 @@ public class Pedidosv extends javax.swing.JFrame {
 
             }
         ));
+        tabla_pedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_pedidoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla_pedido);
 
         listar_pedido.setText("Listar Pedidos");
@@ -361,15 +366,20 @@ public class Pedidosv extends javax.swing.JFrame {
              Pedidos ped= new Pedidos(Integer.parseInt(cod_pedido.getText()), Integer.parseInt(id_cliente.getText()),
              fecha_ped, fecha_sal , pago, descripcion.getText());
              Connection con;
-          try {
-              con = Conexion.getConnection();
-              FuncionesArchivos.crearPedido(con, ped);
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Pedidosv.class.getName()).log(Level.SEVERE, null, ex);
-          } catch (SQLException ex) {
-              Logger.getLogger(Pedidosv.class.getName()).log(Level.SEVERE, null, ex);
-          }
+             con = Conexion.getConnection();
+             FuncionesArchivos.crearPedido(con, ped);
+             JOptionPane.showMessageDialog(null, "Pedido ingresado correctamente");
             
+          forma_pago.setSelectedIndex(0);
+          descripcion.setText("");
+          cod_pedido.setText("");
+          id_cliente.setText("");
+          dia.setSelectedIndex(0);
+          mes.setSelectedIndex(0);
+          anio.setSelectedIndex(0);
+          dia1.setSelectedIndex(0);
+          mes1.setSelectedIndex(0);
+          anio.setSelectedIndex(0);
       }       
     }//GEN-LAST:event_agregar_pedidoActionPerformed
 
@@ -390,23 +400,31 @@ public class Pedidosv extends javax.swing.JFrame {
     }//GEN-LAST:event_descripcionActionPerformed
 
     private void eliminar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_pedidoActionPerformed
-       int fila = tabla_pedido.getSelectedRow();
-        
-        if(fila > -1){
-           try {
-            Connection con= Conexion.getConnection();
-            String id= tabla_pedido.getValueAt(fila, 0).toString();
-            FuncionesArchivos.eliminarPedido(con, Integer.parseInt(id));
-            
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+     int fila = tabla_pedido.getSelectedRow();
+
+        if (fila > -1) {
+            int dv = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar este pedido");
+            if (dv == 0) {
+                Connection con = Conexion.getConnection();
+                String id = tabla_pedido.getValueAt(fila, 0).toString();
+                FuncionesArchivos.eliminarPedido(con, Integer.parseInt(id));
+                JOptionPane.showMessageDialog(null, "Pedido eliminado");
             }
-            
-        }else{
-            JOptionPane.showMessageDialog(null,"Selecione un pedido");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione un pedido");
         }
+     
+     forma_pago.setSelectedIndex(0);
+          descripcion.setText("");
+          cod_pedido.setText("");
+          id_cliente.setText("");
+          dia.setSelectedIndex(0);
+          mes.setSelectedIndex(0);
+          anio.setSelectedIndex(0);
+          dia1.setSelectedIndex(0);
+          mes1.setSelectedIndex(0);
+          anio.setSelectedIndex(0);
     }//GEN-LAST:event_eliminar_pedidoActionPerformed
 
     private void forma_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forma_pagoActionPerformed
@@ -459,6 +477,21 @@ public class Pedidosv extends javax.swing.JFrame {
      evt.consume();
      }  
     }//GEN-LAST:event_cod_pedidoKeyTyped
+
+    private void tabla_pedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_pedidoMouseClicked
+       int sel = tabla_pedido.rowAtPoint(evt.getPoint());
+       
+        forma_pago.setSelectedIndex(0);
+          descripcion.setText("");
+          cod_pedido.setText("");
+          id_cliente.setText("");
+          dia.setSelectedIndex(0);
+          mes.setSelectedIndex(0);
+          anio.setSelectedIndex(0);
+          dia1.setSelectedIndex(0);
+          mes1.setSelectedIndex(0);
+          anio.setSelectedIndex(0);
+    }//GEN-LAST:event_tabla_pedidoMouseClicked
 
 
     public static void main(String args[]) {

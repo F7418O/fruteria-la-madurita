@@ -391,13 +391,18 @@ public class Proveedor extends javax.swing.JFrame {
                 this.con= Conexion.getConnection();
                 FuncionesArchivos.modificarProveedor(con, prov);
                 con.close();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+                
+                JOptionPane.showMessageDialog(null, "Modificado Correctamente");
             } catch (SQLException ex) {
                 Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
           
-        
+            contac_prov.setText("");
+            empre_prov.setText("");
+            dir_prov.setText("");
+            telef_prov.setText("");
+            id_prov.setText("");
+            dias_entrega.setText("");
         }
     }//GEN-LAST:event_modificarActionPerformed
 
@@ -414,11 +419,11 @@ public class Proveedor extends javax.swing.JFrame {
                             
                     try {
                         this.con = Conexion.getConnection();
-                        prov= new Proveedores(Integer.parseInt(id_prov.getText()),empre_prov.getText(),contac_prov.getText()
-                        ,dir_prov.getText(), Integer.parseInt(telef_prov.getText()),dias_entrega.getText() );
+                        prov= new Proveedores(Integer.parseInt(id_prov.getText().trim()),empre_prov.getText(),contac_prov.getText()
+                        ,dir_prov.getText(), Integer.parseInt(telef_prov.getText().trim()),dias_entrega.getText() );
                         FuncionesArchivos.ingresarProveedor(con, prov);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+                        
+                        JOptionPane.showMessageDialog(null,"Guardado Correctamente");
                     } catch (SQLException ex) {
                         Logger.getLogger(Proveedor.class.getName()).log(Level.SEVERE, null, ex);
                     }         

@@ -9,34 +9,38 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Frael Campos
  */
 public class Cajon extends javax.swing.JFrame {
- 
-     Empleado emp;
-    
-    public Cajon( Empleado emp) throws ClassNotFoundException, SQLException {
-    setTitle("Cajon de Productos");
-      initComponents();
-      setLocationRelativeTo(null);
-      setEmpleado(emp);
-     
+
+    Empleado emp;
+
+    public Cajon(Empleado emp) throws ClassNotFoundException, SQLException {
+        setTitle("Cajon de Productos");
+        initComponents();
+        setLocationRelativeTo(null);
+        setEmpleado(emp);
+
     }
 
     private Cajon() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public void setEmpleado(Empleado emp){
-        this.emp=emp;
+
+    public void setEmpleado(Empleado emp) {
+        this.emp = emp;
     }
-    public void mostrar() throws ClassNotFoundException, SQLException{
-        Connection con= Conexion.getConnection();
+
+    public void mostrar() throws ClassNotFoundException, SQLException {
+        Connection con = Conexion.getConnection();
         FuncionesArchivos.mostrarCajon(con, cajon);
         con.close();
-        
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,6 +127,11 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
+        precio_prod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precio_prodActionPerformed(evt);
+            }
+        });
         precio_prod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 precio_prodKeyTyped(evt);
@@ -256,7 +265,7 @@ public class Cajon extends javax.swing.JFrame {
             }
         });
 
-        eliminar.setText("ELIMINAR");
+        eliminar.setText("Eliminar");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarActionPerformed(evt);
@@ -363,32 +372,30 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_descripcion_prodActionPerformed
 
     private void agregar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_prodActionPerformed
-        if(nom_prod.getText().isBlank() || descripcion_prod.getText().isBlank() || precio_prod.getText().isBlank() || cod_prod.getText().isBlank()){
-            
+        if (nom_prod.getText().isBlank() || descripcion_prod.getText().isBlank() || precio_prod.getText().isBlank() || cod_prod.getText().isBlank()) {
+
             JOptionPane.showMessageDialog(null, "Llene todos los campos");
-        }else{
-            
-            Cajonproducto oCajon=new Cajonproducto(Integer.parseInt(cod_prod.getText()),nom_prod.getText(), descripcion_prod.getText(), Integer.parseInt(precio_prod.getText()));
+        } else {
+
+            Cajonproducto oCajon = new Cajonproducto(Integer.parseInt(cod_prod.getText()), nom_prod.getText(), descripcion_prod.getText(), Float.valueOf(precio_prod.getText()));
             Connection con;
-            
+
             try {
                 con = Conexion.getConnection();
                 FuncionesArchivos.crearCajonproducto(con, oCajon);
                 con.close();
                 JOptionPane.showMessageDialog(null, "Se ha agregado correctamente");
-                
-            } catch (ClassNotFoundException ex) {
-                
+
             } catch (SQLException ex) {
-              
-                JOptionPane.showMessageDialog(null, "No se puedo agregar"+ex);
+
+                JOptionPane.showMessageDialog(null, "No se puedo agregar" + ex);
             }
             nom_prod.setText("");
             cod_prod.setText("");
             precio_prod.setText("");
             descripcion_prod.setText("");
         }
-           
+
     }//GEN-LAST:event_agregar_prodActionPerformed
 
     private void cod_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_prodActionPerformed
@@ -396,36 +403,56 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_cod_prodActionPerformed
 
     private void volver_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volver_menuActionPerformed
-      Menu ot=new Menu(this.emp);
-      ot.setEmpleado(this.emp);
-      ot.setVisible(true);
-     dispose();  
+        Menu ot = new Menu(this.emp);
+        ot.setEmpleado(this.emp);
+        ot.setVisible(true);
+        dispose();
     }//GEN-LAST:event_volver_menuActionPerformed
 
     private void descripcion_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcion_prodKeyTyped
-    
+
     }//GEN-LAST:event_descripcion_prodKeyTyped
 
     private void cod_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_prodKeyTyped
-     char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }     
+        char Val = evt.getKeyChar();
+
+        if (Character.isLetter(Val)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_cod_prodKeyTyped
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
+        int fila = cajon.getSelectedRow();
+
+        if (fila > -1) {
+            int dv = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar este cajon");
+            if (dv == 0) {
+                try {
+                    Connection con = Conexion.getConnection();
+                    String id = cajon.getValueAt(fila, 0).toString();
+
+                    FuncionesArchivos.eliminarProducto(con, Integer.parseInt(id));
+
+                    JOptionPane.showMessageDialog(null, "Cajon eliminado");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione un producto");
+        }
+
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void mostrar_cajonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrar_cajonesActionPerformed
-         try {  
-             mostrar();
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (SQLException ex) {
-             Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        try {
+            mostrar();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cajon.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_mostrar_cajonesActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -437,24 +464,27 @@ public class Cajon extends javax.swing.JFrame {
     }//GEN-LAST:event_nom_prodAncestorMoved
 
     private void nom_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nom_prodKeyTyped
-     char Val=evt.getKeyChar();
-     
-     if(Character.isDigit(Val)){
-     evt.consume();
-     }   
+        char Val = evt.getKeyChar();
+
+        if (Character.isDigit(Val)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_nom_prodKeyTyped
 
     private void precio_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precio_prodKeyTyped
-       char Val=evt.getKeyChar();
-     
-     if(Character.isLetter(Val)){
-     evt.consume();
-     }   
+        char Val = evt.getKeyChar();
+
+        if (Character.isLetter(Val)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_precio_prodKeyTyped
 
-  
+    private void precio_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precio_prodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precio_prodActionPerformed
+
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Cajon().setVisible(true);
