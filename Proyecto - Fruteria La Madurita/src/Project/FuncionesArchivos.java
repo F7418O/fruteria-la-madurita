@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,10 +30,11 @@ public class FuncionesArchivos {
                 + "values(?,?,?,?,?)";
         try {
             pst = con.prepareStatement(consulta);
-            pst.setInt(1, cliente.getId_tipo());
-            pst.setString(2, cliente.getNombre());
-            pst.setString(3, cliente.getApellido());
-            pst.setInt(4, cliente.getTelefono());
+            pst.setInt(1, cliente.getN_cedula());
+            pst.setInt(2, cliente.getId_tipo());
+            pst.setString(3, cliente.getNombre());
+            pst.setString(4, cliente.getApellido());
+            pst.setInt(5, cliente.getTelefono());
             pst.execute();
             
 
@@ -50,7 +52,7 @@ public class FuncionesArchivos {
     public static void mostrarClientes(Connection con, JTable tabla) {
 
         String[] filas = new String[5];
-        String[] columnas = {"ID CLIENTE", "ID TIPO", "NOMBRE", "APELLIDO", "TELEFONO"};
+        String[] columnas = {"CED. CLIENTE", "ID TIPO", "NOMBRE", "APELLIDO", "TELEFONO"};
         DefaultTableModel model = new DefaultTableModel(null, columnas);
 
         String consulta = "select * from cliente order by id_cliente";
@@ -161,22 +163,26 @@ public class FuncionesArchivos {
     //Empleado
     public static Empleado buscarEmpleado(Connection con, int dni, String pass){
         Empleado empl=null;
-        String []emp = new String[6];
+        String []emp = null;
         Statement st = null;
         ResultSet rs= null;
-        String consulta= "select * from empleado_ where dni_empleado="+dni+" and contraseña='"+pass+"'";
+        String consulta= "select * from empleado where dni_empleado="+dni+" and contraseña='"+pass+"'";
         
         try{
             st = con.createStatement();
             rs = st.executeQuery(consulta);
             
            while(rs.next()){ 
+               emp =new String[6];
                for(int i=0; i<6; i++){
                emp[i]= rs.getString(i+1);
             }
            }
+           if(emp == null){
+               return null;
+           }else{
            empl= new Empleado(Integer.parseInt(emp[1]),Integer.parseInt(emp[0]), emp[2], emp[3],Integer.parseInt(emp[4]), emp[5]);
-            
+           }
         }catch(SQLException e){
             System.out.println(" Error" +e);
         }
@@ -252,7 +258,7 @@ public class FuncionesArchivos {
     public static void ingresarProducto(Connection con, Producto producto) throws SQLException {
         PreparedStatement pst = null;
         String consulta = "Insert into producto(id_producto, nombre_producto , fecha_entrada , peso)"
-                + "values(?,?,?,?,?)";
+                + "values(?,?,?,?)";
         
         try {
             pst = con.prepareStatement(consulta);
@@ -363,11 +369,12 @@ public class FuncionesArchivos {
     }
 public static void mostrarProductoConProv(Connection con, JTable tabla) {
         String[] filas = new String[6];
-        String[] columnas = {"ID PRODUCTO", "NOMBRE", "PESO", "FECHA", "ID_PROVEEDOR", "PROVEEDOR"};
+        String[] columnas = {"ID PRODUCTO", "NOMBRE", "FECHA", "PESO", "ID_PROVEEDOR", "PROVEEDOR"};
         DefaultTableModel model = new DefaultTableModel(null, columnas);
 
-        String consulta = "select *, pp.id_proveedor, pv.nombre from producto p, proveedor_producto pp, "
-                + "where p.id_procuto=pp.id_producto and pp.id_proveedor=pv.id_proveedor order by id_producto";
+        String consulta = "select p.id_producto,p.nombre_producto,p.fecha_entrada, p.peso ,"
+                + " pp.id_proveedor, pv.empresa from producto p,  proveedor_producto pp, proveedor pv" +
+" where pp.id_proveedor=pv.id_proveedor and p.id_producto= pp.id_producto order by p.id_producto";
 
         Statement st = null;
         ResultSet rs = null;
@@ -383,7 +390,7 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
             }
             tabla.setModel(model);
         } catch (SQLException e) {
-            System.out.print(" No se pudo enlistar");
+            System.out.print(" No se pudo enlistar" + e);
         }
 
     }
@@ -445,6 +452,7 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
             System.out.print("Guardado correctamente");
 
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,e);
             System.out.print("Error " + e);
         }finally{
             pst.close();
@@ -496,7 +504,7 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     
      public static void modificarProveedor(Connection con, Proveedores ps) throws SQLException {
         PreparedStatement pst = null;
-        String consulta = "update proveedor set  empresa = ?, nombre_cantacto=?, direccion=?"
+        String consulta = "update proveedor set  empresa = ?, nombre_contacto=?, direccion=?"
                 + ",telefono=? ,dias_entrega=? "
                 + "where id_proveedor = ?";
 
@@ -539,6 +547,7 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
             System.out.print("Guardado correctamente");
 
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Verifique los datos Porfavor!");
             System.out.print("Error " + e);
         }
     }
@@ -621,6 +630,7 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
             System.out.print("Guardado Correctamente");
         } catch (Exception e) {
             System.out.print("" + e.getMessage());
+            JOptionPane.showMessageDialog(null,"Verifique bien los datos");
         }
         finally{
             pst.close();
@@ -701,10 +711,10 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     public static void ingresarFactura(Connection con, Facturacion fa) throws SQLException {
         PreparedStatement pst = null;
         String consulta = "insert into factura( id_factura, id_vendedor, id_cliente, total_pagar) "
-                + "values(?,?,?,?)";
+                + "values(sql.nextval,?,?,?)";
 
         pst = con.prepareStatement(consulta);
-        pst.setInt(1, fa.getId_factu());
+       // pst.setInt(1, fa.getId_factu());//
         pst.setInt(2, fa.getId_vendedor());
         pst.setInt(3, fa.getId_clien());
         pst.setInt(4, fa.getTotal_pagar());
@@ -715,18 +725,30 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     //Detalle_factura
     public static void ingresarDetalleFactura(Connection con, Facturacion fa) throws SQLException {
         PreparedStatement pst = null;
-        String consulta = "insert into detalle_factura( id_factura, cantidad_cajon , id_cajonproducto, cantidad_total) "
+        String consulta = "insert into detalle_factura( id_factura, fecha ,cantidad_total, total_pagar) "
                 + "values(?,?,?,?)";
 
         pst = con.prepareStatement(consulta);
         pst.setInt(1, fa.getId_factu());
-        pst.setInt(2, fa.getCantidad_cajon());
-        pst.setInt(3, fa.getId_cajonproducto());
-        pst.setInt(4, fa.getCantidad_total());
+        pst.setInt(2, fa.getFecha());
+        pst.setInt(3, fa.getCantidadTotal());
+        pst.setInt(4, fa.getTotal_pagar());
         pst.execute();
         pst.close();
     }
 
+    public static void ingresarCajon_detalleFactura(Connection con, Facturacion fa) throws SQLException {
+        PreparedStatement pst = null;
+        String consulta = "insert into cajon_detallefactura( id_factura, cantidad, id_cajonproducto) "
+                + "values(?,?,?,?)";
+
+        pst = con.prepareStatement(consulta);
+        pst.setInt(2, fa.getFecha);
+        pst.setInt(3, fa.getCantidadTotal());
+        pst.setInt(4, fa.getTotal_pagar());
+        pst.execute();
+        pst.close();
+    }
     public static boolean validaCedula(String x) {
         int suma = 0;
         if (x.length() == 9) {
