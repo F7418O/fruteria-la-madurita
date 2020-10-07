@@ -751,19 +751,12 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     //facturacion
     public static void ingresarFactura(Connection con, Facturacion fa,int id_factura) throws SQLException {
         PreparedStatement pst = null;
-<<<<<<< HEAD
-        String consulta = "insert into factura( id_factura, id_vendedor, id_cliente, total_pagar) "
-                + "values(sql.nextval,?,?,?)";
 
-        pst = con.prepareStatement(consulta);
-       // pst.setInt(1, fa.getId_factu());//
-=======
         String consulta = "insert into factura( id_factura, id_vendedor, id_cliente) "
                 + "values(?,?,?)";
 
         pst = con.prepareStatement(consulta);
         pst.setInt(1, id_factura);
->>>>>>> 7b3c769b98cde06536a2d464beb06e72ee83ea48
         pst.setInt(2, fa.getId_vendedor());
         pst.setInt(3, fa.getId_clien());
         pst.execute();
@@ -773,16 +766,6 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     //Detalle_factura
     public static void ingresarDetalleFactura(Connection con, Facturacion fa, int id_factura) throws SQLException {
         PreparedStatement pst = null;
-<<<<<<< HEAD
-        String consulta = "insert into detalle_factura( id_factura, fecha ,cantidad_total, total_pagar) "
-                + "values(?,?,?,?)";
-
-        pst = con.prepareStatement(consulta);
-        pst.setInt(1, fa.getId_factu());
-        pst.setInt(2, fa.getFecha());
-        pst.setInt(3, fa.getCantidadTotal());
-        pst.setInt(4, fa.getTotal_pagar());
-=======
         String consulta = "insert into detalle_factura( id_factura, fecha , cantidad_total, total_pagar) "
                 + "values(?,?,?,?)";
 
@@ -791,26 +774,11 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
         pst.setString(2, fa.getFecha_ven());
         pst.setInt(3, fa.getCantidad_total());
         pst.setFloat(4, fa.getTotal_pagar());
->>>>>>> 7b3c769b98cde06536a2d464beb06e72ee83ea48
         pst.execute();
         pst.close();
     }
 
-<<<<<<< HEAD
-    public static void ingresarCajon_detalleFactura(Connection con, Facturacion fa) throws SQLException {
-        PreparedStatement pst = null;
-        String consulta = "insert into cajon_detallefactura( id_factura, cantidad, id_cajonproducto) "
-                + "values(?,?,?,?)";
-
-        pst = con.prepareStatement(consulta);
-        pst.setInt(2, fa.getFecha);
-        pst.setInt(3, fa.getCantidadTotal());
-        pst.setInt(4, fa.getTotal_pagar());
-        pst.execute();
-        pst.close();
-    }
-=======
-   
+  
     
     //Cajon_detallefactura
     
@@ -853,42 +821,4 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     
     
     
->>>>>>> 7b3c769b98cde06536a2d464beb06e72ee83ea48
-    public static boolean validaCedula(String x) {
-        int suma = 0;
-        if (x.length() == 9) {
-            return false;
-        } else {
-            int a[] = new int[x.length() / 2];
-            int b[] = new int[(x.length() / 2)];
-            int c = 0;
-            int d = 1;
-            for (int i = 0; i < x.length() / 2; i++) {
-                a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
-                c = c + 2;
-                if (i < (x.length() / 2) - 1) {
-                    b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
-                    d = d + 2;
-                }
-            }
-
-            for (int i = 0; i < a.length; i++) {
-                a[i] = a[i] * 2;
-                if (a[i] > 9) {
-                    a[i] = a[i] - 9;
-                }
-                suma = suma + a[i] + b[i];
-            }
-            int aux = suma / 10;
-            int dec = (aux + 1) * 10;
-            if ((dec - suma) == Integer.parseInt(String.valueOf(x.charAt(x.length() - 1)))) {
-                return true;
-            } else if (suma % 10 == 0 && x.charAt(x.length() - 1) == '0') {
-                return true;
-            } else {
-                return false;
-            }
-
-        }
-    }
 }

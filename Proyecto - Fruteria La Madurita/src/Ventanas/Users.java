@@ -166,16 +166,9 @@ public class Users extends javax.swing.JFrame {
         int fila = usuarios_.getSelectedRow();
         
         if(fila > -1){
-           try {
             Connection con= Conexion.getConnection();
             String id= usuarios_.getValueAt(fila, 0).toString();
-            
             FuncionesArchivos.eliminarEmpleado(con, Integer.parseInt(id));
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-            }
             
         }else{
             JOptionPane.showMessageDialog(null,"Seleciones un usuario");
