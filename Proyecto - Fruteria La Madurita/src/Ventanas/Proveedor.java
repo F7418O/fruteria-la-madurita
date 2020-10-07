@@ -346,7 +346,26 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_telef_provActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-  
+         int fila = tabla_proveedores.getSelectedRow();
+
+        if (fila > -1) {
+            int dv = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar este proveedor");
+            if (dv == 0) {
+                try {
+                    Connection con = Conexion.getConnection();
+                    String id = tabla_proveedores.getValueAt(fila, 0).toString();
+
+                    FuncionesArchivos.eliminarProveedor(con,id);
+
+                    JOptionPane.showMessageDialog(null, "Proveedor eliminado");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione un proveedor");
+        }
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void id_provKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_provKeyTyped

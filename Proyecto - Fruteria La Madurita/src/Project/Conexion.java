@@ -24,7 +24,7 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            conexion = DriverManager.getConnection("jdbc:oracle:thin:@"+host+":1521:XE", "CAMPOS_FF", "1234");
+            conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "CAMPOS_FF", "1234");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
