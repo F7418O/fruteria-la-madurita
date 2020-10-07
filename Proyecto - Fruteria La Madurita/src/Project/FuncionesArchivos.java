@@ -739,35 +739,77 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
     }
 
     //facturacion
-    public static void ingresarFactura(Connection con, Facturacion fa) throws SQLException {
+    public static void ingresarFactura(Connection con, Facturacion fa,int id_factura) throws SQLException {
         PreparedStatement pst = null;
-        String consulta = "insert into factura( id_factura, id_vendedor, id_cliente, total_pagar) "
-                + "values(?,?,?,?)";
+        String consulta = "insert into factura( id_factura, id_vendedor, id_cliente) "
+                + "values(?,?,?)";
 
         pst = con.prepareStatement(consulta);
-        pst.setInt(1, fa.getId_factu());
+        pst.setInt(1, id_factura);
         pst.setInt(2, fa.getId_vendedor());
         pst.setInt(3, fa.getId_clien());
-        pst.setInt(4, fa.getTotal_pagar());
         pst.execute();
         pst.close();
     }
 
     //Detalle_factura
-    public static void ingresarDetalleFactura(Connection con, Facturacion fa) throws SQLException {
+    public static void ingresarDetalleFactura(Connection con, Facturacion fa, int id_factura) throws SQLException {
         PreparedStatement pst = null;
-        String consulta = "insert into detalle_factura( id_factura, cantidad_cajon , id_cajonproducto, cantidad_total) "
+        String consulta = "insert into detalle_factura( id_factura, fecha , cantidad_total, total_pagar) "
                 + "values(?,?,?,?)";
 
         pst = con.prepareStatement(consulta);
-        pst.setInt(1, fa.getId_factu());
-        pst.setInt(2, fa.getCantidad_cajon());
-        pst.setInt(3, fa.getId_cajonproducto());
-        pst.setInt(4, fa.getCantidad_total());
+        pst.setInt(1, id_factura);
+        pst.setString(2, fa.getFecha_ven());
+        pst.setInt(3, fa.getCantidad_total());
+        pst.setFloat(4, fa.getTotal_pagar());
         pst.execute();
         pst.close();
     }
 
+   
+    
+    //Cajon_detallefactura
+    
+    public static void ingresarCajon_DetalleFactura(Connection con, int id_factura, int cantidad, int id_cajon) throws SQLException {
+        PreparedStatement pst = null;
+        String consulta = "insert into cajon_detallefactura( id_factura, cantidad, id_cajonproducto) "
+                + "values(?,?,?)";
+
+        pst = con.prepareStatement(consulta);
+        pst.setInt(1, id_factura);
+        pst.setInt(2, cantidad);
+        pst.setInt(3, id_cajon);
+        pst.execute();
+        pst.close();
+    }
+    
+    
+    
+    public static int cantidadREgistro(String sql){
+        Connection conex=null;
+        int cantidad=0;
+           conex=Conexion.getConnection();
+            
+            String sqls="select count(*) from "+sql;
+             
+        try {
+            Statement st=conex.createStatement();
+            ResultSet rs=st.executeQuery(sqls);
+            while(rs.next()){
+                cantidad++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FuncionesArchivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+            return cantidad;
+    
+    }
+    
+    
+    
+    
     public static boolean validaCedula(String x) {
         int suma = 0;
         if (x.length() == 9) {

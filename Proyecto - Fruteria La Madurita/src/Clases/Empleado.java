@@ -17,7 +17,8 @@ public class Empleado {
         this.telefono = telefono;
         this.contraseña = contraseña;
     }
-
+    
+    public Empleado(){}
     public int getId_rol() {
         return id_rol;
     }

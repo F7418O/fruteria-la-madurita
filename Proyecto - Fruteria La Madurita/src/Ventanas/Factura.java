@@ -6,13 +6,25 @@ package Ventanas;
 import Clases.Cajonproducto;
 import Clases.Clientes;
 import Clases.DetalleFactura;
+import Clases.Empleado;
+import Clases.Facturacion;
+import Project.Conexion;
 import Project.FuncionesArchivos;
 import Tablemodel.GenericDomainTableModel;
+import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,9 +40,14 @@ public class Factura extends javax.swing.JInternalFrame {
     private JComboBox<Clientes> JComboBox;
     final List columnIdentifiers = Arrays.asList(new Object[]{"ID","Cantidad", "Cajon", "Precio"});
     private GenericDomainTableModel<DetalleFactura> Model;
-   
-    public Factura() {
+    private int row;
+    private Empleado emp;
+    private float total=0;
+    
+    
+    public Factura(Empleado emp) {
         lstCajonProducto = new ArrayList<Cajonproducto>();
+        this.emp = emp;
         initComponents();
         
         this.Model = new GenericDomainTableModel<DetalleFactura>(this.columnIdentifiers) {
@@ -41,6 +58,7 @@ public class Factura extends javax.swing.JInternalFrame {
 	            case 1: return Integer.class;
 	            case 2: return Cajonproducto.class;
 	            case 3: return Float.class;
+                  
 	        }
 	        throw new ArrayIndexOutOfBoundsException(columnIndex);
             }
@@ -72,8 +90,15 @@ public class Factura extends javax.swing.JInternalFrame {
         };
         
         this.tblFactura.setModel(Model);
+        this.tblFactura.setRowSelectionAllowed(false);
+
+        
         setVisible(true);
     }
+    
+    
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -196,7 +221,16 @@ public class Factura extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblFactura.setCellSelectionEnabled(true);
+        tblFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblFactura.setDropMode(javax.swing.DropMode.ON);
         tblFactura.setEnabled(false);
+        tblFactura.setSurrendersFocusOnKeystroke(true);
+        tblFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblFacturaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblFactura);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -332,30 +366,81 @@ public class Factura extends javax.swing.JInternalFrame {
         int cantidad=Integer.parseInt(txtCantidad.getText());
         float precio=oCajon.getPrecio()*cantidad;
         DetalleFactura oDetalle = new DetalleFactura(Model.getRowCount()+1,1, cantidad, precio, oCajon);
-       
+        total=total+precio;
+        
         Model.addRow(oDetalle);
+        
+        txtTotalCantidad.setText(Float.toString(total));
        
  
     }//GEN-LAST:event_btnAgregarActionPerformed
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+
+        Connection  con = Conexion.getConnection();
+        
+        Clientes oCliente=(Clientes)cbCliente.getSelectedItem();
+        List<DetalleFactura> lstDetalle=Model.getDomainObjects();
+        Date fecha= new Date(10000);
+        
+        float total_pagar=Float.parseFloat(txtTotalCantidad.getText());
+        System.out.println(total_pagar);
+        
+        Facturacion oFactura=new Facturacion(1, oCliente.getN_cedula(), total_pagar);
+        oFactura.setCantidad_total(lstDetalle);
+        oFactura.setFecha_ven(fecha);
+        try {
+            int id_factura=FuncionesArchivos.cantidadREgistro("cajon_detallefactura");
+            System.out.println(id_factura);
+            
+            try{
+                FuncionesArchivos.ingresarFactura(con,oFactura,id_factura);
+                con.close();
+                System.out.println("hola");
+            }catch(SQLException e){
+            
+            }
+            
+            try{
+                FuncionesArchivos.ingresarDetalleFactura(con, oFactura,id_factura);
+                con.close();
+            }catch(SQLException e){}
+            for(int i=0; i<lstDetalle.size();i++){
+                FuncionesArchivos.ingresarCajon_DetalleFactura(con, id_factura, 
+                        lstDetalle.get(i).getCantidad(), lstDetalle.get(i).getoCajonP().getId());
+            
+            }
+            
+            JOptionPane.showMessageDialog(null, "Se ha realizado correctamente la factura");
+        } catch (SQLException ex) {
+            Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
         
     }//GEN-LAST:event_btnGrabarActionPerformed
     private void btnBorrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarTodoActionPerformed
-       
+
+        Model.clearTableModelData();
+        total=0;
+        txtTotalCantidad.setText(Float.toString(total));
+        
     }//GEN-LAST:event_btnBorrarTodoActionPerformed
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if (cboProducto.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un producto");
-            cboProducto.requestFocusInWindow();
-            return;
-        }
         
-        try {
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
+        total=total-(float) tblFactura.getValueAt(row, 3);
+        Model.deleteRow(this.row);
+        txtTotalCantidad.setText(Float.toString(total));
+        
+      
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
        String consulta = JOptionPane.showInputDialog("Ingrese número de cédula:" );
@@ -407,13 +492,34 @@ public class Factura extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadActionPerformed
 
+    private void tblFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFacturaMouseClicked
+        // TODO add your handling code here:
+        
+        this.row=tblFactura.rowAtPoint(evt.getPoint());
+        
+        
+    }//GEN-LAST:event_tblFacturaMouseClicked
 
+    
+    
+    public void keyTyped(KeyEvent e) {}
+
+
+    public void keyReleased(KeyEvent e) {}
+
+    
+    /** Método para el tratamiento del escuchador del MouseListener */
+	
+	
+	
     
     
     
     
 public static void main(String[] args){
-    Factura oFactura= new Factura();
+    Empleado oEmpleado=new Empleado();
+    
+    Factura oFactura= new Factura(oEmpleado);
     
     JFrame frame=new JFrame("Ventana");
     frame.getContentPane().add(oFactura,BorderLayout.CENTER);

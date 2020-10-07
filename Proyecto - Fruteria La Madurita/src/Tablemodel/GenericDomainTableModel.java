@@ -160,7 +160,7 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return true;
+		return false;
 	}
 
     /* ********************* * 

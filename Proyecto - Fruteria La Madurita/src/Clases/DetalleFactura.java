@@ -16,6 +16,15 @@ public class DetalleFactura {
     private int cantidad;
     private float precio;
     private Cajonproducto oCajonP;
+    private boolean seleccion=false;
+
+    public boolean isSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(boolean seleccion) {
+        this.seleccion = seleccion;
+    }
     
     
     public DetalleFactura(){
