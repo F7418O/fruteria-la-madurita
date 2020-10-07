@@ -10,6 +10,7 @@ import Clases.Pedidos;
 import Clases.Producto_stock;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -760,7 +761,7 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
 
         pst = con.prepareStatement(consulta);
         pst.setInt(1, id_factura);
-        pst.setString(2, fa.getFecha_ven());
+        pst.setDate(2, (Date) fa.getFecha_ven());
         pst.setInt(3, fa.getCantidad_total());
         pst.setFloat(4, fa.getTotal_pagar());
         pst.execute();

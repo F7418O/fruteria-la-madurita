@@ -165,6 +165,7 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel4.setText("Cantidad");
 
         txtCantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtCantidad.setText("1");
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadActionPerformed(evt);
@@ -389,12 +390,12 @@ public class Factura extends javax.swing.JInternalFrame {
         oFactura.setCantidad_total(lstDetalle);
         oFactura.setFecha_ven(fecha);
         try {
-            int id_factura=FuncionesArchivos.cantidadREgistro("cajon_detallefactura");
+            int id_factura=FuncionesArchivos.cantidadREgistro("factura");
             System.out.println(id_factura);
             
             try{
                 FuncionesArchivos.ingresarFactura(con,oFactura,id_factura);
-                con.close();
+                
                 System.out.println("hola");
             }catch(SQLException e){
             
@@ -402,7 +403,7 @@ public class Factura extends javax.swing.JInternalFrame {
             
             try{
                 FuncionesArchivos.ingresarDetalleFactura(con, oFactura,id_factura);
-                con.close();
+                
             }catch(SQLException e){}
             for(int i=0; i<lstDetalle.size();i++){
                 FuncionesArchivos.ingresarCajon_DetalleFactura(con, id_factura, 
