@@ -427,16 +427,10 @@ public class Cajon extends javax.swing.JFrame {
         if (fila > -1) {
             int dv = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar este cajon");
             if (dv == 0) {
-                try {
-                    Connection con = Conexion.getConnection();
-                    String id = cajon.getValueAt(fila, 0).toString();
-
-                    FuncionesArchivos.eliminarProducto(con, Integer.parseInt(id));
-
-                    JOptionPane.showMessageDialog(null, "Cajon eliminado");
-                } catch (SQLException ex) {
-                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Connection con = Conexion.getConnection();
+                String id = cajon.getValueAt(fila, 0).toString();
+                FuncionesArchivos.eliminarCajonproducto(con, Integer.parseInt(id));
+                JOptionPane.showMessageDialog(null, "Cajon eliminado");
             }
 
         } else {

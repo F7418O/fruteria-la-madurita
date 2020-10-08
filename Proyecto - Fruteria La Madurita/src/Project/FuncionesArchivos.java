@@ -664,6 +664,21 @@ public static void mostrarProductoConProv(Connection con, JTable tabla) {
 
     }
     
+     public static void eliminarCajonproducto(Connection con, int cjproducto) {
+        PreparedStatement pst = null;
+        String consulta = "delete from cajonproducto where id_cajonproducto= ?";
+
+        try {
+            pst = con.prepareStatement(consulta);
+            pst.setInt(1, cjproducto);
+            pst.execute();
+            pst.close();
+
+            System.out.print("Cajon eliminado correctamente");
+        } catch (Exception e) {
+            System.out.print(" No se pudo eliminar cajon");
+        }
+    }
     
     public static List<Cajonproducto> consultarCajonP(String sql){
     
