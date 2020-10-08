@@ -251,7 +251,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registrar_usrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrar_usrActionPerformed
-
+        Empleado emp;
         if ((nombre_r.getText().isEmpty() || apellido_r.getText().isEmpty() || cedula_r.getText().isEmpty()
                 || contra_r.getText().isEmpty()) || rol.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Complete todos los campos");

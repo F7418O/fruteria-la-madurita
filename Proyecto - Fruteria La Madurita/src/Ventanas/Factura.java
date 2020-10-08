@@ -386,7 +386,7 @@ public class Factura extends javax.swing.JInternalFrame {
         float total_pagar=Float.parseFloat(txtTotalCantidad.getText());
         System.out.println(total_pagar);
         
-        Facturacion oFactura=new Facturacion(1, oCliente.getN_cedula(), total_pagar);
+        Facturacion oFactura=new Facturacion(this.emp.getDni(), oCliente.getN_cedula(), total_pagar);
         oFactura.setCantidad_total(lstDetalle);
         oFactura.setFecha_ven(fecha);
         try {
