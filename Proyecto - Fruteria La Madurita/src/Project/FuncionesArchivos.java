@@ -230,10 +230,10 @@ public class FuncionesArchivos {
 
     public static void mostrarEmpleados(Connection con, JTable tabla) {
         String[] filas = new String[6];
-        String[] columnas = {"ID EMPLEADO", "ID ROL", "CEDULA", "NOMBRE", "APELLIDO", "TELEFONO"};
+        String[] columnas = {"DNI EMPLEADO", "ID ROL", "NOMBRE", "APELLIDO", "TELEFONO", "CONTRASEÑA"};
         DefaultTableModel model = new DefaultTableModel(null, columnas);
 
-        String consulta = "select * from empleado order by id_empleado";
+        String consulta = "select * from empleado order by dni_empleado";
 
         Statement st = null;
         ResultSet rs = null;
